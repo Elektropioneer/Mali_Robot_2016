@@ -93,7 +93,7 @@ uint8_t gpio_read_pin(uint8_t pin)
         }
     }
 
-    return 0xFF;
+    return 1;
 }
 uint16_t test = 0;
 void gpio_debouncer(void)

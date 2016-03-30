@@ -12,9 +12,9 @@
 #define ODOMETRY_STUCK				2
 #define ODOMETRY_CALLBACK_RETURN	3
 
-#define LOW_SPEED					50
-#define NORMAL_SPEED				90
-#define HIGH_SPEED					250
+#define LOW_SPEED					30
+#define NORMAL_SPEED				65
+#define HIGH_SPEED					90
 
 #define FORWARD						1
 #define BACKWARD					-1
@@ -48,7 +48,7 @@ uint8_t     odometry_move_straight(int16_t distance, uint8_t speed, uint8_t (*ca
 uint8_t     odometry_move_to_position(struct odometry_position* position, uint8_t speed, uint8_t direction,
                                       uint8_t (*callback)(uint32_t start_time));
 void	    odometry_set_position(struct odometry_position* new_position);
-uint8_t     odometry_rotate_for(uint16_t angle,uint8_t speed, uint8_t (*callback)(uint32_t start_time))
+uint8_t     odometry_rotate_for(uint16_t angle,uint8_t speed, uint8_t (*callback)(uint32_t start_time));
 uint8_t     odometry_set_angle(uint16_t angle, uint8_t speed, uint8_t (*callback)(uint32_t start_time));
 uint8_t     odometry_get_status(void);
 void        odometry_stop(int8_t type);
