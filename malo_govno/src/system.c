@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "system.h"
+#include "can.h"
 #include "gpio.h"
 #include <stdlib.h>
 #include <avr/io.h>
@@ -42,11 +43,14 @@ ISR(TIMER1_COMPA_vect)
 
 void system_init(void)
 {
-	_delay_ms(500);
-	
+	_delay_ms(1000);
+	DDRG = 0xff;
+	PORTG = 0xFF;
+	_delay_ms(1000);
+	PORTG = 0x00;
 	servo_init(50);
 	timer_init(1000);
-	CAN_Init();
+	CAN_Init(1);
 }
 uint32_t system_get_system_time(void)
 {

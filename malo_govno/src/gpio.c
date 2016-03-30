@@ -32,7 +32,7 @@ uint8_t gpio_register_pin(uint8_t pin, uint8_t direction, bool pulled_up)
 	{
 		*(volatile uint8_t*)(0x21 + 3 *  (port - 1)) |= (1 << pin_reg);
 		*(volatile uint8_t*)(0x22 + 3 *  (port - 1)) &= ~(1 << pin_reg);
-        return;
+        return 0;
 	}
 	else
 		*(volatile uint8_t*)(0x21 + 3 *  (port - 1)) &= ~(1 << pin_reg);
@@ -58,6 +58,7 @@ uint8_t gpio_write_pin(uint8_t pin, bool value)
 		*(volatile uint32_t*)(0x22 + 3 * (port - 1)) = temp | (1 << pin);
 	else
 		*(volatile uint32_t*)(0x22 + 3 * (port - 1)) = temp & ~(1 << pin);
+	return 0;
 }
 
 static uint8_t __gpio_read_pin(uint8_t pin)

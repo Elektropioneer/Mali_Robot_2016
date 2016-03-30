@@ -13,6 +13,7 @@ const struct goto_fields purple_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] 
 {
 	{{100,100},NORMAL_SPEED,FORWARD,NULL}	
 };
+
 void purpleside(void)
 {
 	struct odometry_position starting_position;
