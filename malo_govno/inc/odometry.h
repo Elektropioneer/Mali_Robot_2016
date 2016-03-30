@@ -19,7 +19,10 @@
 #define FORWARD						1
 #define BACKWARD					-1
 
-struct odometry_position
+#define ROBOT_STATE_COLLISION		0
+#define ROBOT_STATE_TACTIC_ONE		1
+
+struct odometry_position 
 {
 	int16_t x;
 	int16_t y;
@@ -44,7 +47,7 @@ enum odometry_states
 uint8_t     odometry_move_straight(int16_t distance, uint8_t speed, uint8_t (*callback)(uint32_t start_time));
 uint8_t     odometry_move_to_position(struct odometry_position* position, uint8_t speed, uint8_t direction,
                                       uint8_t (*callback)(uint32_t start_time));
-void	    odometry_set_position(struct odometry_position* position);
+void	    odometry_set_position(struct odometry_position* new_position);
 uint8_t     odometry_rotate(uint16_t angle,uint8_t speed, uint8_t (*callback)(uint32_t start_time));
 uint8_t     odometry_set_angle(uint16_t angle, uint8_t speed, uint8_t (*callback)(uint32_t start_time));
 uint8_t     odometry_get_status(void);

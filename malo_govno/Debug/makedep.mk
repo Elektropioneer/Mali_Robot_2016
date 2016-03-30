@@ -10,7 +10,11 @@ src\can.c
 
 src\gpio.c
 
+src\greenside.c
+
 src\odometry.c
+
+src\purpleside.c
 
 src\system.c
 

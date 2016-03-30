@@ -30,7 +30,7 @@ unsigned char restartCheck;
 unsigned char stateRobot;
 
 uint32_t getSystemTime(void);
-void SystemInit(void);
+void system_init(void);
 
 //Funkcije za proveru senzora, jumpera i prekidaca
 signed char jumperCheck(void);

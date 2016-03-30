@@ -9,7 +9,7 @@
 
 static uint8_t current_speed = 0;
 
-static volatile struct odometry_position position=
+volatile struct odometry_position position=
 {
 	.x     = 0,
 	.y     = 0,

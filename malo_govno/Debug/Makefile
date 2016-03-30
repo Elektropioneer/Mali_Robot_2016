@@ -43,7 +43,9 @@ C_SRCS +=  \
 ../src/actuators.c \
 ../src/can.c \
 ../src/gpio.c \
+../src/greenside.c \
 ../src/odometry.c \
+../src/purpleside.c \
 ../src/system.c \
 ../src/uart.c
 
@@ -59,7 +61,9 @@ main.o \
 src/actuators.o \
 src/can.o \
 src/gpio.o \
+src/greenside.o \
 src/odometry.o \
+src/purpleside.o \
 src/system.o \
 src/uart.o
 
@@ -68,7 +72,9 @@ main.o \
 src/actuators.o \
 src/can.o \
 src/gpio.o \
+src/greenside.o \
 src/odometry.o \
+src/purpleside.o \
 src/system.o \
 src/uart.o
 
@@ -77,7 +83,9 @@ main.d \
 src/actuators.d \
 src/can.d \
 src/gpio.d \
+src/greenside.d \
 src/odometry.d \
+src/purpleside.d \
 src/system.d \
 src/uart.d
 
@@ -86,7 +94,9 @@ main.d \
 src/actuators.d \
 src/can.d \
 src/gpio.d \
+src/greenside.d \
 src/odometry.d \
+src/purpleside.d \
 src/system.d \
 src/uart.d
 
@@ -104,6 +114,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

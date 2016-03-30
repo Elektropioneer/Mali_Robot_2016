@@ -40,6 +40,14 @@ ISR(TIMER1_COMPA_vect)
 	sys_time++;
 }
 
+void system_init(void)
+{
+	_delay_ms(500);
+	
+	servo_init(50);
+	timer_init(1000);
+	CAN_Init();
+}
 uint32_t system_get_system_time(void)
 {
 	return sys_time;
