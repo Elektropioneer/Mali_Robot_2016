@@ -35,9 +35,7 @@ int main()
 			while(1)
 			{
 				PORTG = 0xff;
-				//greenside();
-				odometry_move_straight(300,NORMAL_SPEED,NULL);
-				while(1);
+				purpleside();
 			}
 		}
 	}
