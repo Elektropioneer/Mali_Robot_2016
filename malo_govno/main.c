@@ -14,6 +14,7 @@ int main()
 	
 	while(1)
 	{
+		_delay_ms(1000);
 		//middle button
 		while(i == 0)
 		{
@@ -22,7 +23,7 @@ int main()
 			if(gpio_read_pin(31) == 1)
 			{
 				i = 1;
-				//_delay_ms(1000);
+				_delay_ms(1000);
 			}
 			else
 			{
@@ -34,7 +35,9 @@ int main()
 			while(1)
 			{
 				PORTG = 0xff;
-				greenside();
+				//greenside();
+				odometry_move_straight(300,NORMAL_SPEED,NULL);
+				while(1);
 			}
 		}
 	}

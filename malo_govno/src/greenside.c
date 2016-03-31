@@ -11,20 +11,21 @@
 
 const struct goto_fields green_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] = 
 {
-	{{200,500}, NORMAL_SPEED, FORWARD, NULL}
+	{{85,670}, NORMAL_SPEED, FORWARD, NULL}
 };
 
 void greenside(void)
 {
 	struct odometry_position starting_position;
+	
 	uint8_t current_position = 0; 
 	uint8_t next_position = 0; 
 	uint8_t odometry_status;
 	uint8_t active_state = ROBOT_STATE_TACTIC_ONE;
 
-	starting_position.x     = 0;
-	starting_position.y     = 0;
-	starting_position.angle = 0;
+	starting_position.x     = 85;
+	starting_position.y     = 670;
+	starting_position.angle = 270;
 	 
 	odometry_set_position(&starting_position);
 	 
