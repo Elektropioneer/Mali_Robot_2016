@@ -3,5 +3,5 @@
 
 
 void servo_init(unsigned int f_pwm);
-void servo_position1(unsigned char dutyCycle);
+void servo_set_position(int8_t angle);
 #endif
