@@ -8,8 +8,6 @@
 
 int main()
 {
-	int i = 0;	
-	int angle = 0;
 	system_init();
 	PORTG = 0xff;
 	while(1)
