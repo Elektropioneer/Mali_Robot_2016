@@ -16,7 +16,7 @@ main.d main.o main.o: .././main.c ../inc/gpio.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/stdio.h \
   c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdarg.h \
   c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stddef.h \
-  ../inc/odometry.h
+  ../inc/odometry.h ../inc/sides.h ../inc/actuators.h
 
 ../inc/gpio.h:
 
@@ -57,3 +57,7 @@ c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdarg.h:
 c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stddef.h:
 
 ../inc/odometry.h:
+
+../inc/sides.h:
+
+../inc/actuators.h:

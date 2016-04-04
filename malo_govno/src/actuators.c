@@ -16,11 +16,11 @@ void servo_init(unsigned int f_pwm)
 	
 	TCCR3A = (1 << COM3A1)  | (1 << COM3B1) | (1 << COM3B0) | (1 << COM3C1) | (1 << COM3C0) | (1 << WGM31);
 	TCCR3B = (1<< CS31) | (1 << WGM32) | (1 << WGM33) ; // PRESKALER = 8
-	ICR3   = ((double)F_CPU) / (8.0 * f_pwm) + 0.5; 
+	ICR3   = ((double)F_CPU) / (8.0 * f_pwm) + 0.5;
 }//END OF servo_init
 
 
-static void servo_set_duty_cycle(int16_t value)
+static void servo_set_duty_cycle_kisobran(int16_t value)
 {
 	uint16_t temp = ((double)ICR3 / 255.0) * value + 0.5;
 	OCR3AH = temp >> 8;
@@ -28,8 +28,20 @@ static void servo_set_duty_cycle(int16_t value)
 	
 }//END OF servo_position
 
-void servo_set_position(int8_t angle)
+void servo_set_kisobran_position(int8_t angle)//90 je otvoreno -86 zatvoreno 
 {
-	servo_set_duty_cycle( 255-(236.0 - ((double)angle / 90.0) * 11.4));
+	servo_set_duty_cycle_kisobran( 255-(236.0 - ((double)angle / 90.0) * 11.4));
 
+}
+
+static void servo_set_duty_cycle_vrata(int16_t value)
+{
+	uint16_t temp = ((double)ICR3 / 255.0) * value + 0.5;
+	OCR3BH = temp >> 8;
+	OCR3BL = temp & 0xFF;
+	
+}//END OF servo_position
+void servo_set_vrata_position(int8_t angle)
+{
+	servo_set_duty_cycle_vrata( 255-(236.0 - ((double)angle / 90.0) * 11.4));
 }

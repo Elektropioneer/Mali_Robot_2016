@@ -22,23 +22,23 @@
 unsigned char GPIO_PinRegister(volatile unsigned char *baseAddress, unsigned char pin);
 unsigned char GPIO_PinRead(unsigned char pinHandler);
 unsigned char GPIO_ReadFromRegister(unsigned char pinHandler);
-void fillDebaunsingData(void);
 
 void timer_init(unsigned int freq);
 
 unsigned char restartCheck;
 unsigned char stateRobot;
 
-uint32_t getSystemTime(void);
 void system_init(void);
 
 //Funkcije za proveru senzora, jumpera i prekidaca
-signed char jumperCheck(void);
-signed char sidesSwitch(void);
+uint8_t system_jumper_check(void);
+/*signed char sidesSwitch(void);
 signed char checkLiftSensor(signed char sensor);
 signed char checkFrontSensors(signed char sensor);
 signed char checkRearSensors(signed char sensor);
-signed char checkForStands(signed char sensor);
-unsigned char matchIsStarted(void);
+signed char checkForStands(signed char sensor);*/
+
+void system_set_match_started(void);
+uint8_t system_get_match_started(void);
 
 #endif

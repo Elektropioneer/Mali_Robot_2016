@@ -11,7 +11,7 @@
 
 const struct goto_fields green_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] = 
 {
-	{{85,670}, NORMAL_SPEED, FORWARD, NULL}
+	{{85,671}, NORMAL_SPEED, FORWARD, NULL}
 };
 
 void greenside(void)
