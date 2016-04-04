@@ -11,7 +11,8 @@
 
 const struct goto_fields purple_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] = 
 {
-	{{100,100},NORMAL_SPEED,FORWARD,NULL}	
+	{{100,100},NORMAL_SPEED,FORWARD,NULL},
+	{{200,100},NORMAL_SPEED,FORWARD,NULL}
 };
 
 void purpleside(void)
@@ -41,9 +42,13 @@ void purpleside(void)
 					{
 						break;
 					}
-					if(current_position == 1)
+					if(current_position == 0)
 					{
 						
+					}
+					else if(current_position == 1)
+					{
+						while(1);
 					}
 				}//end for
 		}//end switch

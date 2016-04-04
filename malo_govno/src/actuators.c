@@ -17,6 +17,7 @@ void servo_init(unsigned int f_pwm)
 	TCCR3A = (1 << COM3A1)  | (1 << COM3B1) | (1 << COM3B0) | (1 << COM3C1) | (1 << COM3C0) | (1 << WGM31);
 	TCCR3B = (1<< CS31) | (1 << WGM32) | (1 << WGM33) ; // PRESKALER = 8
 <<<<<<< HEAD
+<<<<<<< HEAD
 	ICR3   = ((double)F_CPU) / (8.0 * f_pwm) + 0.5;
 }//END OF servo_init
 
@@ -70,9 +71,26 @@ void actuators_kisobran(void)
 	servo_set_vrata_position(0);
 }
 =======
+=======
+	ICR3   = ((double)F_CPU) / (8.0 * f_pwm) + 0.5; 
+}//END OF servo_init
+
+
+static void servo_set_duty_cycle(int16_t value)
+{
+	uint16_t temp = ((double)ICR3 / 255.0) * value + 0.5;
+	OCR3AH = temp >> 8;
+	OCR3AL = temp & 0xFF;
+	
+}//END OF servo_position
+
+>>>>>>> 07363ff7400dbe0af1895fa548283af7a30f1eb3
 void servo_set_position(int8_t angle)
 {
 	servo_set_duty_cycle( 255-(236.0 - ((double)angle / 90.0) * 11.4));
 
 }
+<<<<<<< HEAD
 >>>>>>> e0b240b1c14c4966c5f4aab6a35058ead1d19ffe
+=======
+>>>>>>> 07363ff7400dbe0af1895fa548283af7a30f1eb3

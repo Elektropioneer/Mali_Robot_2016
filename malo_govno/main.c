@@ -55,6 +55,7 @@ int main()
 			{
 				
 				PORTG = 0xff;
+<<<<<<< HEAD
 				//greenside();
 				
 				odometry_move_straight(300,NORMAL_SPEED,NULL);
@@ -67,6 +68,9 @@ int main()
 				
 				servo_set_position(20);
 				_delay_ms(2000);
+=======
+				purpleside();
+>>>>>>> 07363ff7400dbe0af1895fa548283af7a30f1eb3
 			}
 		}*/
 >>>>>>> e0b240b1c14c4966c5f4aab6a35058ead1d19ffe
