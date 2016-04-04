@@ -15,7 +15,7 @@
     <AssemblyName>malo_govno</AssemblyName>
     <Name>malo_govno</Name>
     <RootNamespace>malo_govno</RootNamespace>
-    <ToolchainFlavour>test</ToolchainFlavour>
+    <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
