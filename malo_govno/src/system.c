@@ -68,20 +68,20 @@ uint8_t system_get_match_started(void)
 }
 void system_init(void)
 {
-	//gpio_register_pin(39,GPIO_DIRECTION_INPUT,false);
+	timer_register_callback(gpio_debouncer);
+	_delay_ms(100);
+	//gpio_register_pin(39,GPIO_DIRECTION_INPUT,true);
 	
-	_delay_ms(1000);
+	
 	DDRG = 0xff;
-	PORTG = 0xFF;
-	_delay_ms(1000);
-	PORTG = 0x00;
+	PORTG = 0xff;
 	servo_init(50);
 	timer_init(1000);
 	CAN_Init(1);
 
-	actuators_setup_kisobran();
+	//actuators_setup_kisobran();
 	
-	//while(system_jumper_check() == 1);
+	//while(gpio_read_pin(39) == 0);
 	system_reset_system_time();
 	system_set_match_started();
 }

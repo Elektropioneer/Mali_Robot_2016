@@ -118,7 +118,7 @@ void odometry_set_position(struct odometry_position* new_position)
 	buffer[2] = new_position->x & 0xFF;
 	buffer[3] = new_position->y >> 8;
 	buffer[4] = new_position->y & 0xFF;
-	buffer[5] = new_position->angle << 8;
+	buffer[5] = new_position->angle >> 8;
 	buffer[6] = new_position->angle & 0xFF;
 
 	position.x	   = new_position->x;

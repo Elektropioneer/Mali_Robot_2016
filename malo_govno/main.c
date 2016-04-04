@@ -16,10 +16,6 @@ int main()
 	
 	while(1)
 	{
-		PORTG = 0xff;
-		_delay_ms(1000);
-		PORTG = 0x00;
-		_delay_ms(1000);
-		//greenside();
+		greenside();
 	}
 }
