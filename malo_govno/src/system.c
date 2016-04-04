@@ -37,6 +37,8 @@ ISR(TIMER1_COMPA_vect)
 {
     if(timer_callback != NULL)
         timer_callback();
+	if(sys_time >= 80000)
+		actuators_kisobran();
 	sys_time++;
 }
 uint8_t system_jumper_check(void)
@@ -66,6 +68,8 @@ uint8_t system_get_match_started(void)
 }
 void system_init(void)
 {
+	//gpio_register_pin(39,GPIO_DIRECTION_INPUT,false);
+	
 	_delay_ms(1000);
 	DDRG = 0xff;
 	PORTG = 0xFF;
@@ -75,8 +79,7 @@ void system_init(void)
 	timer_init(1000);
 	CAN_Init(1);
 
-
-	//gpio_register_pin(39,GPIO_DIRECTION_INPUT,false);				//jumper PORTF pin 2 BUT CHECK IT FIRST!!!
+	actuators_setup_kisobran();
 	
 	//while(system_jumper_check() == 1);
 	system_reset_system_time();

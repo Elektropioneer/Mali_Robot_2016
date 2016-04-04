@@ -7,18 +7,19 @@
 #include "sides.h"
 #include "actuators.h"
 
+
 int main()
 {
 
 	system_init();
+	//90
+	
 	while(1)
 	{
-		servo_set_kisobran_position(-86);
-		_delay_ms(4000);
-		servo_set_kisobran_position(90);
-		
-
-		while(1);
+		PORTG = 0xff;
+		_delay_ms(1000);
+		PORTG = 0x00;
+		_delay_ms(1000);
 		//greenside();
 	}
 }

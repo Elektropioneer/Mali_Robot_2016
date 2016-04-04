@@ -45,3 +45,18 @@ void servo_set_vrata_position(int8_t angle)
 {
 	servo_set_duty_cycle_vrata( 255-(236.0 - ((double)angle / 90.0) * 11.4));
 }
+void actuators_setup_kisobran(void)
+{
+	servo_set_kisobran_position(-86);
+	_delay_ms(1000);
+	servo_set_vrata_position(0);
+	_delay_ms(1000);
+}
+void actuators_kisobran(void)
+{
+	servo_set_vrata_position(90);
+	_delay_ms(1000);
+	servo_set_kisobran_position(85);
+	_delay_ms(1000);
+	servo_set_vrata_position(0);
+}
