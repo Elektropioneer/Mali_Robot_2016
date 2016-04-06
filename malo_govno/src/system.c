@@ -70,18 +70,19 @@ void system_init(void)
 {
 	timer_register_callback(gpio_debouncer);
 	_delay_ms(100);
-	//gpio_register_pin(39,GPIO_DIRECTION_INPUT,true);
+	gpio_register_pin(8,GPIO_DIRECTION_INPUT,true);
 	
 	
 	DDRG = 0xff;
-	PORTG = 0xff;
 	servo_init(50);
 	timer_init(1000);
 	CAN_Init(1);
 
-	//actuators_setup_kisobran();
+	actuators_setup_kisobran();
 	
-	//while(gpio_read_pin(39) == 0);
+	while(gpio_read_pin(8))
+		_delay_ms(10);
+	PORTG = 0xff;
 	system_reset_system_time();
 	system_set_match_started();
 }
