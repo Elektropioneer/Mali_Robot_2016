@@ -11,7 +11,7 @@
 
 const struct goto_fields purple_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] = 
 {
-	{{100,100},NORMAL_SPEED,FORWARD,NULL}	
+	{{85,1220},NORMAL_SPEED,FORWARD,NULL}	
 };
 
 void purpleside(void)
@@ -22,9 +22,9 @@ void purpleside(void)
 	uint8_t odometry_status;
 	uint8_t active_state = ROBOT_STATE_TACTIC_ONE;
 	
-	starting_position.x		= 0;
-	starting_position.y		= 0;
-	starting_position.angle = 0;
+	starting_position.x		= 85;
+	starting_position.y		= 1020;
+	starting_position.angle = 90;
 	
 	odometry_set_position(&starting_position);
 
@@ -41,9 +41,9 @@ void purpleside(void)
 					{
 						break;
 					}
-					if(current_position == 1)
+					if(current_position == 0)
 					{
-						
+						while(1);
 					}
 				}//end for
 		}//end switch

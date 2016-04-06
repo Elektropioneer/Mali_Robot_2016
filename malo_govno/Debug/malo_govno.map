@@ -834,7 +834,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
  .debug_abbrev  0x00000706      0x12e src/system.o
  .debug_abbrev  0x00000834       0xd9 src/uart.o
 
-.debug_line     0x00000000     0x1d11
+.debug_line     0x00000000     0x1d19
  *(.debug_line)
  .debug_line    0x00000000       0x82 main.o
  .debug_line    0x00000082      0x3d6 src/actuators.o
@@ -842,9 +842,9 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
  .debug_line    0x0000084a      0x2fd src/gpio.o
  .debug_line    0x00000b47      0x133 src/greenside.o
  .debug_line    0x00000c7a      0x7a7 src/odometry.o
- .debug_line    0x00001421      0x12c src/purpleside.o
- .debug_line    0x0000154d      0x397 src/system.o
- .debug_line    0x000018e4      0x42d src/uart.o
+ .debug_line    0x00001421      0x134 src/purpleside.o
+ .debug_line    0x00001555      0x397 src/system.o
+ .debug_line    0x000018ec      0x42d src/uart.o
 
 .debug_frame    0x00000000      0x430
  *(.debug_frame)
