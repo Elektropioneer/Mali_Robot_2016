@@ -32,6 +32,7 @@ void system_init(void);
 
 //Funkcije za proveru senzora, jumpera i prekidaca
 uint8_t system_jumper_check(void);
+int camera(void);
 /*signed char sidesSwitch(void);
 signed char checkLiftSensor(signed char sensor);
 signed char checkFrontSensors(signed char sensor);

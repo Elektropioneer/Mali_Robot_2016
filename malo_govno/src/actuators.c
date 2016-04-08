@@ -16,47 +16,66 @@ void servo_init(unsigned int f_pwm)
 	
 	TCCR3A = (1 << COM3A1)  | (1 << COM3B1) | (1 << COM3B0) | (1 << COM3C1) | (1 << COM3C0) | (1 << WGM31);
 	TCCR3B = (1<< CS31) | (1 << WGM32) | (1 << WGM33) ; // PRESKALER = 8
+	
 	ICR3   = ((double)F_CPU) / (8.0 * f_pwm) + 0.5;
 }//END OF servo_init
 
 
-static void servo_set_duty_cycle_kisobran(int16_t value)
+static void servo_set_duty_cycle_umbrella(int16_t value)
 {
 	uint16_t temp = ((double)ICR3 / 255.0) * value + 0.5;
 	OCR3AH = temp >> 8;
 	OCR3AL = temp & 0xFF;
-	
-}//END OF servo_position
-
-void servo_set_kisobran_position(int8_t angle)//90 je otvoreno -86 zatvoreno 
-{
-	servo_set_duty_cycle_kisobran( 255-(236.0 - ((double)angle / 90.0) * 11.4));
-
 }
-
-static void servo_set_duty_cycle_vrata(int16_t value)
+static void servo_set_duty_cycle_door(int16_t value)
 {
 	uint16_t temp = ((double)ICR3 / 255.0) * value + 0.5;
 	OCR3BH = temp >> 8;
 	OCR3BL = temp & 0xFF;
+}
+static void servo_set_duty_cycle_left_grabber(int16_t value)
+{
+	uint16_t temp = ((double)ICR3 / 255.0) * value + 0.5;
+	OCR3CH = temp >> 8;
+	OCR3CL = temp & 0xFF;
+}
+
+
+
+void servo_set_umbrella_position(int8_t angle)//90 je otvoreno -86 zatvoreno 
+{
+	servo_set_duty_cycle_umbrella( 255-(236.0 - ((double)angle / 90.0) * 11.4));
+
+}
+void servo_set_door_position(int8_t angle)
+{
+	servo_set_duty_cycle_door( 255-(236.0 - ((double)angle / 90.0) * 11.4));
+}
+void servo_set_left_grabber_position(int8_t angle)
+{
+	servo_set_duty_cycle_left_grabber( 255-(236.0 - ((double)angle / 90.0) * 11.4));
+}
+void servo_set_right_grabber_position(int8_t angle)
+{
 	
-}//END OF servo_position
-void servo_set_vrata_position(int8_t angle)
-{
-	servo_set_duty_cycle_vrata( 255-(236.0 - ((double)angle / 90.0) * 11.4));
 }
-void actuators_setup_kisobran(void)
+void actuators_umbrella(void)
 {
-	servo_set_kisobran_position(-86);
+	servo_set_umbrella_position(-86);
 	_delay_ms(1000);
-	servo_set_vrata_position(0);
+	servo_set_door_position(0);
 	_delay_ms(1000);
 }
-void actuators_kisobran(void)
+void actuators_setup(void)
 {
-	servo_set_vrata_position(90);
+	//dodaj posle testova
+	/*
+	servo_set_left_grabber_position();
+	servo_set_right_grabber_position();
+	*/
+	servo_set_door_position(90);
 	_delay_ms(1000);
-	servo_set_kisobran_position(85);
+	servo_set_umbrella_position(85);
 	_delay_ms(1000);
-	servo_set_vrata_position(0);
+	servo_set_door_position(0);
 }
