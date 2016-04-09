@@ -1,6 +1,9 @@
 #ifndef ACTUATORS_H_
 #define ACTUATORS_H_
 
+#define down     0
+#define up       1
+
 void servo_init(unsigned int f_pwm);
 void servo_set_umbrella_position(int8_t angle);
 void servo_set_door_position(int8_t angle);
@@ -9,6 +12,6 @@ void actuators_setup(void);
 void servo_set_left_grabber_position(int8_t angle);
 void servo_set_right_grabber_position(int8_t angle);
 
-void servo_set_grabbers(int8_t angle);
+void servo_set_grabbers(int state);
 
 #endif

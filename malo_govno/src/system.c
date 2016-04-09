@@ -108,16 +108,18 @@ void system_init(void)
 	_delay_ms(100);
 	
 	gpio_register_pin(8,GPIO_DIRECTION_INPUT,true);							//jumper
-	gpio_register_pin(9,GPIO_DIRECTION_INPUT,true);							//camera 0 position
-	gpio_register_pin(10,GPIO_DIRECTION_INPUT,true);						//camera 1 position
-	gpio_register_pin(11,GPIO_DIRECTION_INPUT,true);						//camera 2 position
+	gpio_register_pin(9,GPIO_DIRECTION_INPUT,true);							//prekidac za stranu
+	gpio_register_pin(10,GPIO_DIRECTION_INPUT,true);						//camera 0 position
+	gpio_register_pin(11,GPIO_DIRECTION_INPUT,true);						//camera 1 position
+	gpio_register_pin(12,GPIO_DIRECTION_INPUT,true);						//camera 2 position
+	//oc2a
 
 	//testing for leds
-	gpio_register_pin(0,GPIO_DIRECTION_OUTPUT,false);
-	gpio_register_pin(1,GPIO_DIRECTION_OUTPUT,false);
-	gpio_register_pin(2,GPIO_DIRECTION_OUTPUT,false);
-	gpio_register_pin(3,GPIO_DIRECTION_OUTPUT,false);
-	gpio_register_pin(4,GPIO_DIRECTION_OUTPUT,false);
+	gpio_register_pin(0,GPIO_DIRECTION_OUTPUT,false);						//led tactic 1
+	gpio_register_pin(1,GPIO_DIRECTION_OUTPUT,false);						//led tactic 2
+	gpio_register_pin(2,GPIO_DIRECTION_OUTPUT,false);						//led tactic 3
+	gpio_register_pin(3,GPIO_DIRECTION_OUTPUT,false);						//led tactic 4
+	gpio_register_pin(4,GPIO_DIRECTION_OUTPUT,false);						//led tactic 5
 	
 	DDRG = 0xff;
 	PORTG = 0xff;

@@ -10,6 +10,7 @@ void servo_init(unsigned int f_pwm)
 	DDRE |= ((1 << PINE3) | (1 << PINE4) | (1 << PINE5));
 	
 	TCNT3 = 0;
+	
 	OCR3A = 0;
 	OCR3B = 0;
 	OCR3C = 0;
@@ -47,7 +48,6 @@ static void servo_set_duty_cycle_left_grabber(int16_t value)
 void servo_set_umbrella_position(int8_t angle)//90 je otvoreno -86 zatvoreno 
 {
 	servo_set_duty_cycle_umbrella( 255-(236.0 - ((double)angle / 90.0) * 11.4));
-
 }
 void servo_set_door_position(int8_t angle)
 {
@@ -61,9 +61,16 @@ void servo_set_right_grabber_position(int8_t angle)
 {
 	
 }
-void servo_set_grabbers(int8_t angle)
+void servo_set_grabbers(int state)
 {
-	
+	if(up)
+	{
+		//set the grabbers to up (1) 
+	}
+	else
+	{
+		//set the grabbers to down
+	}
 }
 void actuators_umbrella(void)
 {
@@ -74,14 +81,11 @@ void actuators_umbrella(void)
 }
 void actuators_setup(void)
 {
-	//dodaj posle testova
-	/*
-	servo_set_left_grabber_position();
-	servo_set_right_grabber_position();
-	*/
 	servo_set_door_position(90);
 	_delay_ms(1000);
 	servo_set_umbrella_position(85);
 	_delay_ms(1000);
 	servo_set_door_position(0);
+	_delay_ms(500);
+	servo_set_grabbers(up);
 }

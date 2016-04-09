@@ -19,6 +19,7 @@ void beginning_move(int side)
 	else
 		odometry_rotate_for(90,LOW_SPEED,NULL);
 	//actuators set the left and right one
+	servo_set_grabbers(down);
 	odometry_move_straight(1015,NORMAL_SPEED,NULL);
 	odometry_move_straight(-100,NORMAL_SPEED,NULL);
 	odometry_rotate_for(55,NORMAL_SPEED,NULL);
@@ -62,11 +63,25 @@ int main()
 
 	while(1)
 	{
-		//put if for the side checker
-		if(!done_camera)
-			beginning_move(GREEN_SIDE);
-			done_camera = true;
-		PORTG = 0xff;
-		greenside();
+		if(gpio_read_pin(9) == 1)
+		{
+			if(!done_camera)
+			{
+				beginning_move(GREEN_SIDE);
+				done_camera = true;
+			}	
+			PORTG = 0xff;
+			greenside();	
+		}
+		else
+		{	
+			if(!done_camera)
+			{
+				beginning_move(PURPLE_SIDE);
+				done_camera = true;	
+			}
+			PORTG = 0xff;
+			purpleside();
+		}
 	}
 }
