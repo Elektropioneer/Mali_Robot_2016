@@ -21,6 +21,10 @@
 
 #define ROBOT_STATE_COLLISION		0
 #define ROBOT_STATE_TACTIC_ONE		1
+#define ROBOT_STATE_TACTIC_TWO      2
+#define ROBOT_STATE_TACTIC_THREE    3
+#define ROBOT_STATE_TACTIC_FOUR     4
+#define ROBOT_STATE_TACTIC_FIVE     5
 
 struct odometry_position 
 {

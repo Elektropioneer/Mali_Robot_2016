@@ -41,7 +41,9 @@ static void servo_set_duty_cycle_left_grabber(int16_t value)
 }
 
 
-
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 void servo_set_umbrella_position(int8_t angle)//90 je otvoreno -86 zatvoreno 
 {
 	servo_set_duty_cycle_umbrella( 255-(236.0 - ((double)angle / 90.0) * 11.4));
@@ -56,6 +58,10 @@ void servo_set_left_grabber_position(int8_t angle)
 	servo_set_duty_cycle_left_grabber( 255-(236.0 - ((double)angle / 90.0) * 11.4));
 }
 void servo_set_right_grabber_position(int8_t angle)
+{
+	
+}
+void servo_set_grabbers(int8_t angle)
 {
 	
 }

@@ -41,6 +41,7 @@ static int combination_check()
 int camera(void)
 {
 	int comb,i;
+	_delay_ms(100);
 	for(i=0;i<5;i++)
 	{
 		combination[0] = gpio_read_pin(9);
@@ -96,8 +97,13 @@ uint8_t system_get_match_started(void)
 {
 	return match_started;
 }
-void system_init(void)
+uint8_t return_active_state(void)
 {
+	return active_state;
+}
+void system_init(void)
+{	
+
 	timer_register_callback(gpio_debouncer);
 	_delay_ms(100);
 	
@@ -105,6 +111,13 @@ void system_init(void)
 	gpio_register_pin(9,GPIO_DIRECTION_INPUT,true);							//camera 0 position
 	gpio_register_pin(10,GPIO_DIRECTION_INPUT,true);						//camera 1 position
 	gpio_register_pin(11,GPIO_DIRECTION_INPUT,true);						//camera 2 position
+
+	//testing for leds
+	gpio_register_pin(0,GPIO_DIRECTION_OUTPUT,false);
+	gpio_register_pin(1,GPIO_DIRECTION_OUTPUT,false);
+	gpio_register_pin(2,GPIO_DIRECTION_OUTPUT,false);
+	gpio_register_pin(3,GPIO_DIRECTION_OUTPUT,false);
+	gpio_register_pin(4,GPIO_DIRECTION_OUTPUT,false);
 	
 	DDRG = 0xff;
 	PORTG = 0xff;

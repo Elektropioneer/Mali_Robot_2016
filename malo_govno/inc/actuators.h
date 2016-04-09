@@ -9,4 +9,6 @@ void actuators_setup(void);
 void servo_set_left_grabber_position(int8_t angle);
 void servo_set_right_grabber_position(int8_t angle);
 
+void servo_set_grabbers(int8_t angle);
+
 #endif
