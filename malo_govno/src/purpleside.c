@@ -9,6 +9,70 @@
 #include "actuators.h"
 #include "gpio.h"
 
+//////////////////////////////////////////////////////////////////////////
+//																		//
+//					   DETEKCIJA/CALLBACK FUNKCIJE						//
+//																		//
+//////////////////////////////////////////////////////////////////////////
+
+char purple_detection_front(uint32_t start_time)
+{
+	if(checkFrontSensors(FRONT_ALL) == DETECTED)
+	{
+		stop(SOFT_STOP);
+		return 1;
+	}
+	return 0;
+}
+char purple_detection_front_left(uint32_t start_time)
+{
+	if(checkFrontSensors(FRONT_LEFT_SIDE) == DETECTED)
+	{
+		stop(SOFT_STOP);
+		return 1;
+	}
+	return 0;
+}
+char purple_detection_front_right(uint32_t start_time)
+{
+	if(checkFrontSensors(FRONT_RIGHT_SIDE) == DETECTED)
+	{
+		stop(SOFT_STOP);
+		return 1;
+	}
+	return 0;
+}
+char purple_detection_back(uint32_t start_time)
+{
+	if(checkRearSensors(BACK_ALL) == DETECTED)
+	{
+		stop(SOFT_STOP);
+		return 1;
+	}
+	return 0;
+}
+char purple_detection_back_left(uint32_t start_time)
+{
+	if(checkRearSensors(BACK_LEFT_SIDE) == DETECTED)
+	{
+		stop(SOFT_STOP);
+		return 1;
+	}
+	return 0;
+}
+char purple_detection_back_right(uint32_t start_time)
+{
+	if(checkRearSensors(BACK_RIGHT_SIDE) == DETECTED)
+	{
+		stop(SOFT_STOP);
+		return 1;
+	}
+	return 0;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+
 const struct goto_fields purple_camera_move[TACTIC_CAMERA_POSITION_COUNT] = 
 {
 	{{85,1180},LOW_SPEED,FORWARD,NULL},         // gura prvi pak

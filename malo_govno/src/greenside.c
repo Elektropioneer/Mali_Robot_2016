@@ -14,7 +14,6 @@ const struct goto_fields green_camera_move[TACTIC_CAMERA_POSITION_COUNT] =
 	//zoviti ducija i namestiti
 	//ili samo izracunati 
 	
-	
 	{{85,1180},LOW_SPEED,FORWARD,NULL},         // gura prvi pak
 	{{85,880},NORMAL_SPEED,BACKWARD,NULL},		//vraca se ispred kocki
 	{{1100,980},NORMAL_SPEED,FORWARD,NULL},		//gura kocke

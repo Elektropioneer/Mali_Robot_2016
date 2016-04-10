@@ -18,7 +18,7 @@ void servo_init(unsigned int f_pwm)
 	TCCR3A = (1 << COM3A1)  | (1 << COM3B1) | (1 << COM3B0) | (1 << COM3C1) | (1 << COM3C0) | (1 << WGM31);
 	TCCR3B = (1<< CS31) | (1 << WGM32) | (1 << WGM33) ; // PRESKALER = 8
 	
-	TCCR1A = (1 << COM1A1) | (1 << COM1B1) | (1 << COM1B1) | (1 << COM1C1) | (1 << COM1C0) | (1 << WGM11);
+	TCCR1A = (1 << COM1A1) | (1 << COM1B1) | (1 << COM1B0) | (1 << COM1C1) | (1 << COM1C0) | (1 << WGM11);
 	TCCR1B = (1 << CS11) | (1 << WGM12) | (1 << WGM13);
 	
 	ICR3   = ((double)F_CPU) / (8.0 * f_pwm) + 0.5;
