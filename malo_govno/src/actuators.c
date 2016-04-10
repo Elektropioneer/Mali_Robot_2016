@@ -71,7 +71,7 @@ void servo_set_right_grabber_position(int8_t angle)
 }
 void servo_set_grabbers(int state)
 {
-	if(up)
+	if(UP)
 	{
 		/*
 		servo_set_left_grabber_position();//find
@@ -101,5 +101,5 @@ void actuators_setup(void)
 	_delay_ms(1000);
 	servo_set_door_position(0);
 	_delay_ms(500);
-	servo_set_grabbers(up);
+	servo_set_grabbers(UP);
 }

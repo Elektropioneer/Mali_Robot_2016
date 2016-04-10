@@ -142,6 +142,12 @@ void system_init(void)
 	gpio_register_pin(6,GPIO_DIRECTION_INPUT,true);							//camera 1 position
 	gpio_register_pin(5,GPIO_DIRECTION_INPUT,true);							//camera 2 position
 
+	//need to test
+	gpio_register_pin(9,GPIO_DIRECTION_INPUT,true);							//sensor front left
+	gpio_register_pin(10,GPIO_DIRECTION_INPUT,true);						//sensor front right
+	gpio_register_pin(11,GPIO_DIRECTION_INPUT,true);						//sensor back left
+	gpio_register_pin(12,GPIO_DIRECTION_INPUT,true);						//sensor back right
+	
 	/*
 	//testing for leds
 	gpio_register_pin(0,GPIO_DIRECTION_OUTPUT,false);						//led tactic 1
@@ -164,4 +170,54 @@ void system_init(void)
 	PORTG = 0x00;
 	system_reset_system_time();
 	system_set_match_started();
+}
+signed char checkFrontSensors(signed char sensor)
+{
+	if(sensor == FRONT_LEFT_SIDE)
+	{
+		if(gpio_read_pin(9))
+		{
+			return DETECTED;
+		}
+	}
+	else if(sensor == FRONT_RIGHT_SIDE)
+	{
+		if(gpio_read_pin(10))
+		{
+			return DETECTED;
+		}
+	}
+	else if(sensor == FRONT_ALL)
+	{
+		if(gpio_read_pin(9) || gpio_read_pin(10))
+		{
+			return DETECTED;
+		}
+	}
+	return NOT_DETECTED;
+}
+signed char checkRearSensors(signed char sensor)
+{
+	if(sensor == BACK_LEFT_SIDE)
+	{
+		if(gpio_read_pin(11))//mozda 0
+		{
+			return DETECTED;
+		}
+	}
+	else if(sensor == BACK_RIGHT_SIDE)
+	{
+		if(gpio_read_pin(12))
+		{
+			return DETECTED;
+		}
+	}
+	else if(sensor == BACK_ALL)
+	{
+		if(gpio_read_pin(11) || gpio_read_pin(12))
+		{
+			return DETECTED;
+		}
+	}
+	return NOT_DETECTED;
 }

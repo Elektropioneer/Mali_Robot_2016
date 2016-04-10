@@ -14,7 +14,7 @@ const struct goto_fields purple_camera_move[TACTIC_CAMERA_POSITION_COUNT] =
 	{{85,1180},LOW_SPEED,FORWARD,NULL},         // gura prvi pak
 	{{85,880},NORMAL_SPEED,BACKWARD,NULL},		//vraca se ispred kocki
 	{{1100,980},NORMAL_SPEED,FORWARD,NULL},		//gura kocke
-	{{900,980},NORMAL_SPEED,BACKWARD,NULL}
+	{{900,980},NORMAL_SPEED,BACKWARD,NULL}		//vrati se na kameru
 };
 const struct goto_fields purple_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] =
 {
@@ -56,6 +56,7 @@ void purpleside(void)
 	//							CAMERA MOVEMENT							    //
 	//																		//
 	//////////////////////////////////////////////////////////////////////////
+	
 	for(current_position = next_position;current_position < TACTIC_CAMERA_POSITION_COUNT; current_position++)
 	{
 		odometry_status = odometry_move_to_position(&(purple_camera_move[current_position].point), purple_camera_move[current_position].speed,
@@ -73,6 +74,7 @@ void purpleside(void)
 			_delay_ms(500);
 		}
 	}//end for
+	
 	//////////////////////////////////////////////////////////////////////////
 	
 	//setting active state
