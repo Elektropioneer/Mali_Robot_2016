@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include "actuators.h"
 #include "list_generic.h"
+#include "odometry.h"
 
 static volatile unsigned long sys_time;
 static uint8_t match_started;
@@ -37,6 +38,8 @@ static int combination_check()
 		return 5;
 	else if(combination[0] == 0 && combination[1] == 0 && combination[2] == 0)//error combination
 		return 0;
+		
+	return 0;
 }
 int camera(void)
 {
@@ -44,9 +47,9 @@ int camera(void)
 	_delay_ms(100);
 	for(i=0;i<5;i++)
 	{
-		combination[0] = gpio_read_pin(9);
-		combination[1] = gpio_read_pin(10);
-		combination[2] = gpio_read_pin(11);
+		combination[0] = gpio_read_pin(7);
+		combination[1] = gpio_read_pin(6);
+		combination[2] = gpio_read_pin(5);
 		
 		comb = combination_check();
 		_delay_ms(100);	
@@ -72,15 +75,6 @@ ISR(TIMER1_COMPA_vect)
 		actuators_umbrella();
 	sys_time++;
 }
-uint8_t system_jumper_check(void)
-{
-	gpio_debouncer();
-	if(gpio_read_pin(39) == 0)
-	{
-		return 1;
-	}
-	return 0;
-}
 void system_reset_system_time(void)
 {
 	sys_time = 0;
@@ -101,6 +95,41 @@ uint8_t return_active_state(void)
 {
 	return active_state;
 }
+void do_the_camera()
+{
+	static int camera_return;
+	
+	camera_return = camera();
+	switch(camera_return)
+	{
+		case 1:
+			active_state = ROBOT_STATE_TACTIC_ONE;
+			//gpio_write_pin(0,1);
+			break;
+		case 2:
+			active_state = ROBOT_STATE_TACTIC_TWO;
+			//gpio_write_pin(1,1);
+			break;
+		case 3:
+			active_state = ROBOT_STATE_TACTIC_THREE;
+			//gpio_write_pin(2,1);
+			break;
+		case 4:
+			active_state = ROBOT_STATE_TACTIC_FOUR;
+			//gpio_write_pin(3,1);
+			break;
+		case 5:
+			active_state = ROBOT_STATE_TACTIC_FIVE;
+			//gpio_write_pin(4,1);
+			break;
+		case 0:
+			active_state = 5;
+			//gpio_write_pin(0,1);
+			//gpio_write_pin(4,1);
+			break;
+		//maybe put default for rotate for getting the camera right
+	}
+}
 void system_init(void)
 {	
 
@@ -108,18 +137,19 @@ void system_init(void)
 	_delay_ms(100);
 	
 	gpio_register_pin(8,GPIO_DIRECTION_INPUT,true);							//jumper
-	gpio_register_pin(9,GPIO_DIRECTION_INPUT,true);							//prekidac za stranu
-	gpio_register_pin(10,GPIO_DIRECTION_INPUT,true);						//camera 0 position
-	gpio_register_pin(11,GPIO_DIRECTION_INPUT,true);						//camera 1 position
-	gpio_register_pin(12,GPIO_DIRECTION_INPUT,true);						//camera 2 position
-	//oc2a
+	gpio_register_pin(15,GPIO_DIRECTION_INPUT,true);						//prekidac za stranu
+	gpio_register_pin(7,GPIO_DIRECTION_INPUT,true);							//camera 0 position
+	gpio_register_pin(6,GPIO_DIRECTION_INPUT,true);							//camera 1 position
+	gpio_register_pin(5,GPIO_DIRECTION_INPUT,true);							//camera 2 position
 
+	/*
 	//testing for leds
 	gpio_register_pin(0,GPIO_DIRECTION_OUTPUT,false);						//led tactic 1
 	gpio_register_pin(1,GPIO_DIRECTION_OUTPUT,false);						//led tactic 2
 	gpio_register_pin(2,GPIO_DIRECTION_OUTPUT,false);						//led tactic 3
 	gpio_register_pin(3,GPIO_DIRECTION_OUTPUT,false);						//led tactic 4
 	gpio_register_pin(4,GPIO_DIRECTION_OUTPUT,false);						//led tactic 5
+	*/
 	
 	DDRG = 0xff;
 	PORTG = 0xff;

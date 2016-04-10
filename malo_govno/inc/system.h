@@ -32,7 +32,6 @@ int active_state;
 void system_init(void);
 
 //Funkcije za proveru senzora, jumpera i prekidaca
-uint8_t system_jumper_check(void);
 int camera(void);
 uint8_t return_active_state(void);
 /*signed char sidesSwitch(void);

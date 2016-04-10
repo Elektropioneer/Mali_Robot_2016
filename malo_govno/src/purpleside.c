@@ -9,9 +9,16 @@
 #include "actuators.h"
 #include "gpio.h"
 
-const struct goto_fields purple_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] = 
+const struct goto_fields purple_camera_move[TACTIC_CAMERA_POSITION_COUNT] = 
 {
-	{{85,1220},NORMAL_SPEED,FORWARD,NULL}	
+	{{85,1180},LOW_SPEED,FORWARD,NULL},         // gura prvi pak
+	{{85,880},NORMAL_SPEED,BACKWARD,NULL},		//vraca se ispred kocki
+	{{1100,980},NORMAL_SPEED,FORWARD,NULL},		//gura kocke
+	{{900,980},NORMAL_SPEED,BACKWARD,NULL}
+};
+const struct goto_fields purple_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] =
+{
+	{{85,1220},NORMAL_SPEED,FORWARD,NULL}
 };
 const struct goto_fields purple_tactic_two_positions[TACTIC_TWO_POSITION_COUNT] = 
 {
@@ -35,14 +42,43 @@ void purpleside(void)
 	uint8_t current_position = 0;
 	uint8_t next_position	 = 0;
 	uint8_t odometry_status;
-	uint8_t active_state = return_active_state();
+	uint8_t active_state;
+	//uint8_t active_state = ROBOT_STATE_TACTIC_ONE;//for testing
 	
 	starting_position.x		= 85;
 	starting_position.y		= 1020;
 	starting_position.angle = 90;
 	
 	odometry_set_position(&starting_position);
-
+	
+	//////////////////////////////////////////////////////////////////////////
+	//																		//
+	//							CAMERA MOVEMENT							    //
+	//																		//
+	//////////////////////////////////////////////////////////////////////////
+	for(current_position = next_position;current_position < TACTIC_CAMERA_POSITION_COUNT; current_position++)
+	{
+		odometry_status = odometry_move_to_position(&(purple_camera_move[current_position].point), purple_camera_move[current_position].speed,
+		purple_camera_move[current_position].direction,purple_camera_move[current_position].callback);
+		if(odometry_status == ODOMETRY_FAIL)
+		{
+			break;
+		}
+		if(current_position == 3)
+		{
+			odometry_rotate_for(-85,NORMAL_SPEED,NULL);
+			_delay_ms(200);
+			//do the camera work
+			do_the_camera();
+			_delay_ms(500);
+		}
+	}//end for
+	//////////////////////////////////////////////////////////////////////////
+	
+	//setting active state
+	active_state = return_active_state();
+	
+	
 	while(1)
 	{
 		switch(active_state)
