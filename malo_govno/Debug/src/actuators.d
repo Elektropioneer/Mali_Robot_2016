@@ -10,6 +10,7 @@ src/actuators.d src/actuators.o src/actuators.o: ../src/actuators.c \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/version.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h \
+  c:/winavr-20100110/lib/gcc/../../avr/include/avr/interrupt.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/util/delay.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/stdlib.h \
@@ -37,6 +38,8 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/version.h:
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h:
+
+c:/winavr-20100110/lib/gcc/../../avr/include/avr/interrupt.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/util/delay.h:
 

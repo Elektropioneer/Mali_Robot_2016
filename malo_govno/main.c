@@ -11,6 +11,7 @@ int main()
 {
 
 	system_init();
+	_delay_ms(1000);
 
 	//test servo_left, right actuator
 	//test read pin 15
@@ -18,13 +19,20 @@ int main()
 	
 	while(1)
 	{
-		if(gpio_read_pin(15) == 1)
+		/*if(gpio_read_pin(14) == 1)
 		{
-			greenside();
+			PORTG = 0xff;
 		}
+		
 		else
 		{	
-			purpleside();
-		}
+			PORTG = 0x00;
+		}*/
+		//100 up
+		//250 down
+		
+		PORTG = 0xff;
+		servo_set_grabbers_down();
+		while(1);
 	}
 }

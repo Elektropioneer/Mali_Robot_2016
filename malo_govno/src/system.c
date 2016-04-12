@@ -47,9 +47,9 @@ int camera(void)
 	_delay_ms(100);
 	for(i=0;i<5;i++)
 	{
-		combination[0] = gpio_read_pin(7);
-		combination[1] = gpio_read_pin(6);
-		combination[2] = gpio_read_pin(5);
+		combination[0] = gpio_read_pin(0);
+		combination[1] = gpio_read_pin(1);
+		combination[2] = gpio_read_pin(2);
 		
 		comb = combination_check();
 		_delay_ms(100);	
@@ -137,10 +137,10 @@ void system_init(void)
 	_delay_ms(100);
 	
 	gpio_register_pin(8,GPIO_DIRECTION_INPUT,true);							//jumper
-	gpio_register_pin(15,GPIO_DIRECTION_INPUT,true);						//prekidac za stranu
-	gpio_register_pin(7,GPIO_DIRECTION_INPUT,true);							//camera 0 position
-	gpio_register_pin(6,GPIO_DIRECTION_INPUT,true);							//camera 1 position
-	gpio_register_pin(5,GPIO_DIRECTION_INPUT,true);							//camera 2 position
+	gpio_register_pin(14,GPIO_DIRECTION_INPUT,true);						//prekidac za stranu
+	gpio_register_pin(0,GPIO_DIRECTION_INPUT,true);							//camera 0 position
+	gpio_register_pin(1,GPIO_DIRECTION_INPUT,true);							//camera 1 position
+	gpio_register_pin(2,GPIO_DIRECTION_INPUT,true);							//camera 2 position
 
 	//need to test
 	/*
@@ -160,7 +160,7 @@ void system_init(void)
 	*/
 	
 	DDRG = 0xff;
-	PORTG = 0xff;
+//	PORTG = 0xff;
 	servo_init(50);
 	timer_init(1000);
 	CAN_Init(1);
@@ -169,7 +169,7 @@ void system_init(void)
 	
 	while(gpio_read_pin(8))
 		_delay_ms(10);
-	PORTG = 0x00;
+	//PORTG = 0x00;
 	system_reset_system_time();
 	system_set_match_started();
 }

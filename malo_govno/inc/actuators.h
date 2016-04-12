@@ -22,7 +22,9 @@ void actuators_umbrella(void);
 void actuators_setup(void);
 void servo_set_left_grabber_position(int8_t angle);
 void servo_set_right_grabber_position(int8_t angle);
+void servo_position(unsigned char duty_cycle);
 
-void servo_set_grabbers(int state);
+void servo_set_grabbers_up(void);
+void servo_set_grabbers_down(void);
 
 #endif
