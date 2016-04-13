@@ -47,9 +47,9 @@ int camera(void)
 	_delay_ms(100);
 	for(i=0;i<5;i++)
 	{
-		combination[0] = gpio_read_pin(0);
-		combination[1] = gpio_read_pin(1);
-		combination[2] = gpio_read_pin(2);
+		combination[0] = gpio_read_pin(CAMERA_0_PIN);
+		combination[1] = gpio_read_pin(CAMERA_1_PIN);
+		combination[2] = gpio_read_pin(CAMERA_2_PIN);
 		
 		comb = combination_check();
 		_delay_ms(100);	
@@ -136,38 +136,27 @@ void system_init(void)
 	timer_register_callback(gpio_debouncer);
 	_delay_ms(100);
 	
-	gpio_register_pin(8,GPIO_DIRECTION_INPUT,true);							//jumper
-	gpio_register_pin(14,GPIO_DIRECTION_INPUT,true);						//prekidac za stranu
-	gpio_register_pin(0,GPIO_DIRECTION_INPUT,true);							//camera 0 position
-	gpio_register_pin(1,GPIO_DIRECTION_INPUT,true);							//camera 1 position
-	gpio_register_pin(2,GPIO_DIRECTION_INPUT,true);							//camera 2 position
+	gpio_register_pin(JUMPER_PIN,GPIO_DIRECTION_INPUT,true);							//jumper
+	gpio_register_pin(SIDE_PIN,GPIO_DIRECTION_INPUT,true);								//prekidac za stranu
+	gpio_register_pin(CAMERA_0_PIN,GPIO_DIRECTION_INPUT,true);							//camera 0 position
+	gpio_register_pin(CAMERA_1_PIN,GPIO_DIRECTION_INPUT,true);							//camera 1 position
+	gpio_register_pin(CAMERA_2_PIN,GPIO_DIRECTION_INPUT,true);							//camera 2 position
 
-	//need to test
-	/*
-	gpio_register_pin(9,GPIO_DIRECTION_INPUT,true);							//sensor front left
-	gpio_register_pin(10,GPIO_DIRECTION_INPUT,true);						//sensor front right
-	gpio_register_pin(11,GPIO_DIRECTION_INPUT,true);						//sensor back left
-	gpio_register_pin(12,GPIO_DIRECTION_INPUT,true);						//sensor back right
-	*/
+	gpio_register_pin(SENSOR_F_L_PIN,GPIO_DIRECTION_INPUT,true);						//sensor front left
+	gpio_register_pin(SENSOR_F_R_PIN,GPIO_DIRECTION_INPUT,true);						//sensor front right
+	gpio_register_pin(SENSOR_B_L_PIN,GPIO_DIRECTION_INPUT,true);						//sensor back left
+	gpio_register_pin(SENSOR_B_R_PIN,GPIO_DIRECTION_INPUT,true);						//sensor back right
 	
-	/*
-	//testing for leds
-	gpio_register_pin(0,GPIO_DIRECTION_OUTPUT,false);						//led tactic 1
-	gpio_register_pin(1,GPIO_DIRECTION_OUTPUT,false);						//led tactic 2
-	gpio_register_pin(2,GPIO_DIRECTION_OUTPUT,false);						//led tactic 3
-	gpio_register_pin(3,GPIO_DIRECTION_OUTPUT,false);						//led tactic 4
-	gpio_register_pin(4,GPIO_DIRECTION_OUTPUT,false);						//led tactic 5
-	*/
 	
 	DDRG = 0xff;
-//	PORTG = 0xff;
+	//PORTG = 0xff;
 	servo_init(50);
 	timer_init(1000);
 	CAN_Init(1);
 
 	actuators_setup();
 	
-	while(gpio_read_pin(8))
+	while(gpio_read_pin(JUMPER_PIN))
 		_delay_ms(10);
 	//PORTG = 0x00;
 	system_reset_system_time();
@@ -177,21 +166,21 @@ signed char checkFrontSensors(signed char sensor)
 {
 	if(sensor == FRONT_LEFT_SIDE)
 	{
-		if(gpio_read_pin(9))
+		if(gpio_read_pin(SENSOR_F_L_PIN) == TRUE)
 		{
 			return DETECTED;
 		}
 	}
 	else if(sensor == FRONT_RIGHT_SIDE)
 	{
-		if(gpio_read_pin(10))
+		if(gpio_read_pin(SENSOR_F_R_PIN) == TRUE)
 		{
 			return DETECTED;
 		}
 	}
 	else if(sensor == FRONT_ALL)
 	{
-		if(gpio_read_pin(9) || gpio_read_pin(10))
+		if(gpio_read_pin(SENSOR_F_L_PIN) == TRUE || gpio_read_pin(SENSOR_F_R_PIN) == TRUE)
 		{
 			return DETECTED;
 		}
@@ -202,21 +191,21 @@ signed char checkRearSensors(signed char sensor)
 {
 	if(sensor == BACK_LEFT_SIDE)
 	{
-		if(gpio_read_pin(11))//mozda 0
+		if(gpio_read_pin(SENSOR_B_L_PIN) == TRUE)
 		{
 			return DETECTED;
 		}
 	}
 	else if(sensor == BACK_RIGHT_SIDE)
 	{
-		if(gpio_read_pin(12))
+		if(gpio_read_pin(SENSOR_B_R_PIN) == TRUE)
 		{
 			return DETECTED;
 		}
 	}
 	else if(sensor == BACK_ALL)
 	{
-		if(gpio_read_pin(11) || gpio_read_pin(12))
+		if(gpio_read_pin(SENSOR_B_L_PIN) == TRUE || gpio_read_pin(SENSOR_B_R_PIN) == TRUE)
 		{
 			return DETECTED;
 		}

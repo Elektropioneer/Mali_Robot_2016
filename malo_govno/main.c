@@ -11,28 +11,35 @@ int main()
 {
 
 	system_init();
-	_delay_ms(1000);
-
-	//test servo_left, right actuator
-	//test read pin 15
-	//test camera
+	_delay_ms(100);
+	
+	int i,b;
 	
 	while(1)
 	{
-		/*if(gpio_read_pin(14) == 1)
+		/*
+		if(gpio_read_pin(SIDE_PIN) == 1)
 		{
-			PORTG = 0xff;
+			greenside();
 		}
 		
 		else
 		{	
-			PORTG = 0x00;
-		}*/
-		//100 up
-		//250 down
+			purpleside();
+		}
 		
-		PORTG = 0xff;
-		servo_set_grabbers_down();
-		while(1);
+		*/
+		i = checkRearSensors(BACK_ALL);
+		b = checkFrontSensors(FRONT_ALL);
+		if(i == DETECTED || b == DETECTED)
+		{
+			PORTG = 0xff;
+		}
+		else
+		{
+			PORTG = 0x00;
+		}
+		
+		
 	}
 }

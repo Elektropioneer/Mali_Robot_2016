@@ -13,11 +13,25 @@
 #define GPIOG_BASE 0x34
 #define GPIOF_BASE 0x31
 
-#define PURPLE 1
-#define GREEN 0
+#define PURPLE					1
+#define GREEN					0
 
-#define ACTIVATE 1
-#define DEACTIVE 0
+#define ACTIVATE				1
+#define DEACTIVE				0
+
+#define TRUE					1
+#define FALSE					0
+
+#define JUMPER_PIN				8		//portb 0			
+#define SIDE_PIN				14		//portb 6
+#define CAMERA_0_PIN			0		//porta 0
+#define CAMERA_1_PIN			1		//porta 1
+#define CAMERA_2_PIN			2		//porta 2
+
+#define SENSOR_F_L_PIN			9		//portb 1	
+#define SENSOR_F_R_PIN			10		//portb 2
+#define SENSOR_B_L_PIN			12		//portb 4
+#define SENSOR_B_R_PIN			13		//portb 5
 
 unsigned char GPIO_PinRegister(volatile unsigned char *baseAddress, unsigned char pin);
 unsigned char GPIO_PinRead(unsigned char pinHandler);
