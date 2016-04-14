@@ -29,6 +29,7 @@ int main()
 		}
 		
 		*/
+		/*
 		i = checkRearSensors(BACK_ALL);
 		b = checkFrontSensors(FRONT_ALL);
 		if(i == DETECTED || b == DETECTED)
@@ -39,7 +40,7 @@ int main()
 		{
 			PORTG = 0x00;
 		}
-		
+		*/
 		
 	}
 }

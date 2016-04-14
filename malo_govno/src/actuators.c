@@ -81,7 +81,7 @@ servo_set_right_grabber_position(250);
 */
 void actuators_umbrella(void)
 {
-	servo_set_umbrella_position(-86);
+	servo_set_umbrella_position(85);
 	_delay_ms(1000);
 	servo_set_door_position(0);
 	_delay_ms(1000);
@@ -90,10 +90,10 @@ void actuators_setup(void)
 {
 	servo_set_door_position(90);
 	_delay_ms(1000);
-	servo_set_umbrella_position(85);
+	servo_set_umbrella_position(-86);
 	_delay_ms(1000);
 	servo_set_door_position(0);
 	_delay_ms(500);
 	servo_set_grabbers_up();
-	
 }
+
