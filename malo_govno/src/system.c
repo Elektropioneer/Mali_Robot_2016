@@ -71,7 +71,6 @@ int camera()
 		combination[2] = gpio_read_pin(CAMERA_2_PIN);
 	}
 	returned = combination_check();
-	
 }
 
 

@@ -6,22 +6,27 @@
 #include "odometry.h"
 #include "sides.h"
 #include "actuators.h"
-/*
+
 int camera_state = 0;
 
 static int purple_camera()
 {
 	//put coordinations XD
-	odometry_move_straight(150,NORMAL_SPEED,NULL);
+	odometry_move_straight(150,50,NULL);					//ide napred zbog velikog
+	_delay_ms(1000);
 	PORTG = 0xff;
-	odometry_rotate(180,LOW_SPEED,NULL);
-	
+	odometry_move_straight(-200,LOW_SPEED,NULL);			//vraca se nazad
+	_delay_ms(500);
+	odometry_rotate(90,LOW_SPEED,NULL);						//rotira se za kocke
+	_delay_ms(1000);
+	odometry_move_straight(1000,LOW_SPEED,NULL);			//gura kocke
+	/*
 	while(camera_state == 0)
 	{
 		camera_state = camera();		
 	}
 	return camera_state;
-	
+	*/
 }
 static int green_camera()
 {
@@ -38,7 +43,7 @@ static void led()
 	PORTG = 0x00;
 	_delay_ms(1000);
 	PORTG = 0xff;
-}*/
+}
 int main()
 {
 
@@ -47,11 +52,7 @@ int main()
 
 	while(1)
 	{
-		odometry_move_straight(200,NORMAL_SPEED,NULL);
-		PORTG = 0x00;
-		odometry_move_straight(-200,NORMAL_SPEED,NULL);
+		purple_camera();
 		while(1);
 	}
-		/*odometry_move_straight(200,LOW_SPEED,NULL);
-		PORTG = 0xff;*/
 }
