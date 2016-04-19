@@ -26,19 +26,37 @@ void timer_register_callback(void (*callback)(void))
 }
 static int combination_check()
 {
+	PORTG = 0x00;
 	if(combination[0] == 1 && combination[1] == 0 && combination[2] == 0)//first combination
+	{
+		PORTG = 0x01;
 		return 1;
+	}
 	else if(combination[0] == 0 && combination[1] == 1 && combination[2] == 0)//second combination
+	{
+		PORTG = 0x02;
 		return 2;
+	}
 	else if(combination[0] == 0 && combination[1] == 0 && combination[2] == 1)//third combination
+	{
+		PORTG = 0x04;
 		return 3;
+	}
 	else if(combination[0] == 1 && combination[1] == 1 && combination[2] == 0)//fourth combination
+	{
+		PORTG = 0x03;
 		return 4;
+	}
 	else if(combination[0] == 0 && combination[1] == 1 && combination[2] == 1)//five combination
+	{
+		PORTG = 0x06;
 		return 5;
+	}
 	else if(combination[0] == 0 && combination[1] == 0 && combination[2] == 0)//error combination
+	{
+		PORTG = 0x00;
 		return 0;
-		
+	}
 	return 0;
 }
 int camera(void)
@@ -71,7 +89,7 @@ ISR(TIMER1_COMPA_vect)
 {
     if(timer_callback != NULL)
         timer_callback();
-	if(sys_time >= 80000)
+	if(sys_time >= 90000)
 		actuators_umbrella();
 	sys_time++;
 }
@@ -104,28 +122,21 @@ void do_the_camera()
 	{
 		case 1:
 			active_state = ROBOT_STATE_TACTIC_ONE;
-			//gpio_write_pin(0,1);
 			break;
 		case 2:
 			active_state = ROBOT_STATE_TACTIC_TWO;
-			//gpio_write_pin(1,1);
 			break;
 		case 3:
 			active_state = ROBOT_STATE_TACTIC_THREE;
-			//gpio_write_pin(2,1);
 			break;
 		case 4:
 			active_state = ROBOT_STATE_TACTIC_FOUR;
-			//gpio_write_pin(3,1);
 			break;
 		case 5:
 			active_state = ROBOT_STATE_TACTIC_FIVE;
-			//gpio_write_pin(4,1);
 			break;
 		case 0:
 			active_state = 5;
-			//gpio_write_pin(0,1);
-			//gpio_write_pin(4,1);
 			break;
 		//maybe put default for rotate for getting the camera right
 	}
@@ -136,31 +147,32 @@ void system_init(void)
 	timer_register_callback(gpio_debouncer);
 	_delay_ms(100);
 	
-	gpio_register_pin(JUMPER_PIN,GPIO_DIRECTION_INPUT,true);							//jumper
-	gpio_register_pin(SIDE_PIN,GPIO_DIRECTION_INPUT,true);								//prekidac za stranu
-	gpio_register_pin(CAMERA_0_PIN,GPIO_DIRECTION_INPUT,true);							//camera 0 position
-	gpio_register_pin(CAMERA_1_PIN,GPIO_DIRECTION_INPUT,true);							//camera 1 position
-	gpio_register_pin(CAMERA_2_PIN,GPIO_DIRECTION_INPUT,true);							//camera 2 position
+	gpio_register_pin(JUMPER_PIN,GPIO_DIRECTION_INPUT,TRUE);							//jumper
+	gpio_register_pin(SIDE_PIN,GPIO_DIRECTION_INPUT,TRUE);								//prekidac za stranu
+	gpio_register_pin(CAMERA_0_PIN,GPIO_DIRECTION_INPUT,TRUE);							//camera 0 position
+	gpio_register_pin(CAMERA_1_PIN,GPIO_DIRECTION_INPUT,TRUE);							//camera 1 position
+	gpio_register_pin(CAMERA_2_PIN,GPIO_DIRECTION_INPUT,TRUE);							//camera 2 position
 
-	gpio_register_pin(SENSOR_F_L_PIN,GPIO_DIRECTION_INPUT,true);						//sensor front left
-	gpio_register_pin(SENSOR_F_R_PIN,GPIO_DIRECTION_INPUT,true);						//sensor front right
-	gpio_register_pin(SENSOR_B_L_PIN,GPIO_DIRECTION_INPUT,true);						//sensor back left
-	gpio_register_pin(SENSOR_B_R_PIN,GPIO_DIRECTION_INPUT,true);						//sensor back right
+	gpio_register_pin(SENSOR_F_L_PIN,GPIO_DIRECTION_INPUT,TRUE);						//sensor front left
+	gpio_register_pin(SENSOR_F_R_PIN,GPIO_DIRECTION_INPUT,TRUE);						//sensor front right
+	gpio_register_pin(SENSOR_B_L_PIN,GPIO_DIRECTION_INPUT,TRUE);						//sensor back left
+	gpio_register_pin(SENSOR_B_R_PIN,GPIO_DIRECTION_INPUT,TRUE);						//sensor back right
 	
 	
 	DDRG = 0xff;
-	//PORTG = 0xff;
+	//PORTG = 0x00;
 	servo_init(50);
 	timer_init(1000);
 	CAN_Init(1);
 
-	actuators_setup();
+	//actuators_setup();
 	
 	while(gpio_read_pin(JUMPER_PIN))
 		_delay_ms(10);
-	//PORTG = 0x00;
+	//PORTG = 0xff;
 	system_reset_system_time();
 	system_set_match_started();
+	
 }
 signed char checkFrontSensors(signed char sensor)
 {

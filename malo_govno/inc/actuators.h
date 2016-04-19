@@ -12,8 +12,8 @@
 #define BACK_RIGHT_SIDE				-2
 #define BACK_ALL					-3
 
-#define DETECTED		1
-#define NOT_DETECTED	0
+#define DETECTED		0
+#define NOT_DETECTED	1
 
 void servo_init(unsigned int f_pwm);
 void servo_set_umbrella_position(int8_t angle);

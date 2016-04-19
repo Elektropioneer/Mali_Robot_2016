@@ -19,7 +19,7 @@ char green_detection_front(uint32_t start_time)
 {
 	if(checkFrontSensors(FRONT_ALL) == DETECTED)
 	{
-		stop(SOFT_STOP);
+		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
@@ -28,7 +28,7 @@ char green_detection_front_left(uint32_t start_time)
 {
 	if(checkFrontSensors(FRONT_LEFT_SIDE) == DETECTED)
 	{
-		stop(SOFT_STOP);
+		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
@@ -37,7 +37,7 @@ char green_detection_front_right(uint32_t start_time)
 {
 	if(checkFrontSensors(FRONT_RIGHT_SIDE) == DETECTED)
 	{
-		stop(SOFT_STOP);
+		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
@@ -46,7 +46,7 @@ char green_detection_back(uint32_t start_time)
 {
 	if(checkRearSensors(BACK_ALL) == DETECTED)
 	{
-		stop(SOFT_STOP);
+		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
@@ -55,7 +55,7 @@ char green_detection_back_left(uint32_t start_time)
 {
 	if(checkRearSensors(BACK_LEFT_SIDE) == DETECTED)
 	{
-		stop(SOFT_STOP);
+		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
@@ -64,7 +64,7 @@ char green_detection_back_right(uint32_t start_time)
 {
 	if(checkRearSensors(BACK_RIGHT_SIDE) == DETECTED)
 	{
-		stop(SOFT_STOP);
+		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
@@ -77,10 +77,10 @@ const struct goto_fields green_camera_move[TACTIC_CAMERA_POSITION_COUNT] =
 	//zoviti ducija i namestiti
 	//ili samo izracunati 
 	
-	{{85,1180},LOW_SPEED,FORWARD,NULL},         // gura prvi pak
+	{{85,2000},LOW_SPEED,FORWARD,green_detection_front}/*,         // gura prvi pak 1180
 	{{85,880},NORMAL_SPEED,BACKWARD,NULL},		//vraca se ispred kocki
 	{{1100,980},NORMAL_SPEED,FORWARD,NULL},		//gura kocke
-	{{900,980},NORMAL_SPEED,BACKWARD,NULL}
+	{{900,980},NORMAL_SPEED,BACKWARD,NULL}*/
 };
 const struct goto_fields green_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] =
 {
@@ -127,9 +127,13 @@ void greenside(void)
 		{
 			break;
 		}
+		if(current_position == 0)
+		{
+			while(1);
+		}
 		if(current_position == 3)
 		{
-			odometry_rotate_for(85,NORMAL_SPEED,NULL);
+			odometry_rotate(85,NORMAL_SPEED,NULL);
 			_delay_ms(200);
 			//do the camera work
 			do_the_camera();

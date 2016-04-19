@@ -2,7 +2,7 @@
 #define SIDES_H_
 
 #define TACTIC_CAMERA_POSITION_COUNT 4
-#define TACTIC_ONE_POSITION_COUNT 1
+#define TACTIC_ONE_POSITION_COUNT 2
 #define TACTIC_TWO_POSITION_COUNT 1
 #define TACTIC_THREE_POSITION_COUNT 1
 #define TACTIC_FOUR_POSITION_COUNT 1
@@ -10,6 +10,7 @@
 
 #define PURPLE_SIDE 0
 #define GREEN_SIDE 1
+
 struct goto_fields
 {
 	struct odometry_position point;

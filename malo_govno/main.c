@@ -20,12 +20,12 @@ int main()
 		/*
 		if(gpio_read_pin(SIDE_PIN) == 1)
 		{
-			greenside();
+			PORTG = 0xff;
 		}
 		
 		else
 		{	
-			purpleside();
+			PORTG = 0x00;
 		}
 		
 		*/
@@ -39,8 +39,7 @@ int main()
 		else
 		{
 			PORTG = 0x00;
-		}
-		*/
-		
+		}*/
+		//purpleside();	
 	}
 }

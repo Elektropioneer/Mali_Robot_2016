@@ -65,8 +65,8 @@ void servo_set_right_grabber_position(int8_t angle)//UP 100 DOWN 250 or otherwis
 }
 void servo_set_grabbers_up(void)
 {
-	servo_set_left_grabber_position(-29);
-	servo_set_right_grabber_position(100);
+	servo_set_left_grabber_position(-10);
+	servo_set_right_grabber_position(70);
 }
 void servo_set_grabbers_down(void)
 {
@@ -88,9 +88,9 @@ void actuators_umbrella(void)
 }
 void actuators_setup(void)
 {
-	servo_set_door_position(90);
+	servo_set_door_position(80);
 	_delay_ms(1000);
-	servo_set_umbrella_position(-86);
+	servo_set_umbrella_position(-90);
 	_delay_ms(1000);
 	servo_set_door_position(0);
 	_delay_ms(500);

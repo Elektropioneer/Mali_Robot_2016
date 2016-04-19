@@ -19,7 +19,7 @@ char purple_detection_front(uint32_t start_time)
 {
 	if(checkFrontSensors(FRONT_ALL) == DETECTED)
 	{
-		stop(SOFT_STOP);
+		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
@@ -28,7 +28,7 @@ char purple_detection_front_left(uint32_t start_time)
 {
 	if(checkFrontSensors(FRONT_LEFT_SIDE) == DETECTED)
 	{
-		stop(SOFT_STOP);
+		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
@@ -37,7 +37,7 @@ char purple_detection_front_right(uint32_t start_time)
 {
 	if(checkFrontSensors(FRONT_RIGHT_SIDE) == DETECTED)
 	{
-		stop(SOFT_STOP);
+		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
@@ -46,7 +46,7 @@ char purple_detection_back(uint32_t start_time)
 {
 	if(checkRearSensors(BACK_ALL) == DETECTED)
 	{
-		stop(SOFT_STOP);
+		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
@@ -55,7 +55,7 @@ char purple_detection_back_left(uint32_t start_time)
 {
 	if(checkRearSensors(BACK_LEFT_SIDE) == DETECTED)
 	{
-		stop(SOFT_STOP);
+		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
@@ -64,7 +64,7 @@ char purple_detection_back_right(uint32_t start_time)
 {
 	if(checkRearSensors(BACK_RIGHT_SIDE) == DETECTED)
 	{
-		stop(SOFT_STOP);
+		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
@@ -75,14 +75,15 @@ char purple_detection_back_right(uint32_t start_time)
 
 const struct goto_fields purple_camera_move[TACTIC_CAMERA_POSITION_COUNT] = 
 {
-	{{85,1180},LOW_SPEED,FORWARD,NULL},         // gura prvi pak
+	{{85,1300},LOW_SPEED,FORWARD,NULL},         // gura prvi pak
 	{{85,880},NORMAL_SPEED,BACKWARD,NULL},		//vraca se ispred kocki
 	{{1100,980},NORMAL_SPEED,FORWARD,NULL},		//gura kocke
 	{{900,980},NORMAL_SPEED,BACKWARD,NULL}		//vrati se na kameru
 };
 const struct goto_fields purple_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] =
 {
-	{{85,1220},NORMAL_SPEED,FORWARD,NULL}
+	{{85,1300},LOW_SPEED,FORWARD,NULL},         // gura prvi pak
+	{{85,880},NORMAL_SPEED,FORWARD,NULL}
 };
 const struct goto_fields purple_tactic_two_positions[TACTIC_TWO_POSITION_COUNT] = 
 {
@@ -103,48 +104,39 @@ const struct goto_fields purple_tactic_five_positions[TACTIC_FIVE_POSITION_COUNT
 void purpleside(void)
 {
 	struct odometry_position starting_position;
-	uint8_t current_position = 0;
-	uint8_t next_position	 = 0;
-	uint8_t odometry_status;
-	uint8_t active_state;
-	//uint8_t active_state = ROBOT_STATE_TACTIC_ONE;//for testing
+	uint8_t current_position, camera_current_position = 0;
+	uint8_t next_position, camera_next_position	 = 0;
+	uint8_t odometry_status, camera_odometry_status;
+	int8_t active_state = -1;
 	
 	starting_position.x		= 85;
-	starting_position.y		= 1020;
+	starting_position.y		= 1200;
 	starting_position.angle = 90;
 	
 	odometry_set_position(&starting_position);
 	
-	//////////////////////////////////////////////////////////////////////////
-	//																		//
-	//							CAMERA MOVEMENT							    //
-	//																		//
-	//////////////////////////////////////////////////////////////////////////
-	
-	for(current_position = next_position;current_position < TACTIC_CAMERA_POSITION_COUNT; current_position++)
+	while(active_state == -1)
 	{
-		odometry_status = odometry_move_to_position(&(purple_camera_move[current_position].point), purple_camera_move[current_position].speed,
-		purple_camera_move[current_position].direction,purple_camera_move[current_position].callback);
-		if(odometry_status == ODOMETRY_FAIL)
+		for(camera_current_position = camera_next_position;camera_current_position < TACTIC_CAMERA_POSITION_COUNT; camera_current_position++)
 		{
-			break;
+			camera_odometry_status = odometry_move_to_position(&(purple_camera_move[camera_current_position].point), purple_camera_move[camera_current_position].speed,
+			purple_camera_move[camera_current_position].direction,purple_camera_move[camera_current_position].callback);
+			
+			if(camera_odometry_status == ODOMETRY_FAIL)
+			{
+				break;
+			}
+			if(camera_current_position == 3)
+			{
+				odometry_rotate(-85,NORMAL_SPEED,NULL);
+				_delay_ms(200);
+				//do the camera work
+				do_the_camera();
+				_delay_ms(500);
+				while(1);
+			}
 		}
-		if(current_position == 3)
-		{
-			odometry_rotate_for(-85,NORMAL_SPEED,NULL);
-			_delay_ms(200);
-			//do the camera work
-			do_the_camera();
-			_delay_ms(500);
-		}
-	}//end for
-	
-	//////////////////////////////////////////////////////////////////////////
-	
-	//setting active state
-	active_state = return_active_state();
-	
-	
+	}
 	while(1)
 	{
 		switch(active_state)
@@ -158,7 +150,7 @@ void purpleside(void)
 					{
 						break;
 					}
-					if(current_position == 0)
+					if(current_position == 1)
 					{
 						while(1);
 					}
