@@ -65,7 +65,7 @@ void servo_set_right_grabber_position(int8_t angle)//UP 100 DOWN 250 or otherwis
 }
 void servo_set_grabbers_up(void)
 {
-	servo_set_left_grabber_position(-10);
+	servo_set_left_grabber_position(10);
 	servo_set_right_grabber_position(70);
 }
 void servo_set_grabbers_down(void)

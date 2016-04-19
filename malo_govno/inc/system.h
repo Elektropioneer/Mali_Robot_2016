@@ -41,12 +41,11 @@ void timer_init(unsigned int freq);
 
 unsigned char restartCheck;
 unsigned char stateRobot;
-int active_state;
+//int active_state;
 
 void system_init(void);
 
 //Funkcije za proveru senzora, jumpera i prekidaca
-int camera(void);
 uint8_t return_active_state(void);
 signed char checkFrontSensors(signed char sensor);
 signed char checkRearSensors(signed char sensor);

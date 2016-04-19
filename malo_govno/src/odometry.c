@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <util/delay.h>
 #include <math.h>
-
+#include <avr/io.h>
 
 static uint8_t current_speed = 0;
 
@@ -20,13 +20,13 @@ volatile struct odometry_position position=
 void odometry_set_speed(uint8_t speed)
 {
 	if(speed == current_speed)
-		return;
+	return;
 
 	uint8_t buffer[8];
 	buffer[0] = 'V';
 	buffer[1] = speed;
 	while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
-		_delay_ms(50);
+	_delay_ms(50);
 
 	current_speed = speed;
 }
@@ -37,9 +37,9 @@ static void odometry_query_position(void)
 	buffer[0] = 'P';
 	while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
 		_delay_ms(50);
-
+	//uso
 	CAN_Read(buffer, DRIVER_RX_IDENTIFICATOR);
-
+	//nije uso
 	position.state = buffer[0];
 	position.x	   = (buffer[1] << 8) | buffer[2];
 	position.y	   = (buffer[3] << 8) | buffer[4];
@@ -49,16 +49,19 @@ static void odometry_query_position(void)
 static uint8_t odometry_wait_until_done(uint8_t (*callback)(uint32_t start_time))
 {
 	uint32_t time = system_get_system_time();
+	//uso
 	do
 	{
+		//uso
 		odometry_query_position();
+		//nije uso
 		if(callback != NULL)
 		{
 			if(callback(time) == 1)
 				return ODOMETRY_FAIL;
 		}
 	}while(position.state == MOVING || position.state == ROTATING);
-
+	
 	return ODOMETRY_SUCCESS;
 }
 
@@ -85,9 +88,10 @@ uint8_t odometry_move_straight(int16_t distance, uint8_t speed, uint8_t (*callba
 	buffer[0] = 'D';
 	buffer[1] = distance >> 8;
 	buffer[2] = distance & 0xFF;
+	
 	while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
 		_delay_ms(50);
-
+		
 	return odometry_wait_until_done(callback);
 }
 

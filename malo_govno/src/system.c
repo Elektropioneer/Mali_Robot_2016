@@ -24,6 +24,7 @@ void timer_register_callback(void (*callback)(void))
 {
     timer_callback = callback;
 }
+
 static int combination_check()
 {
 	PORTG = 0x00;
@@ -59,20 +60,18 @@ static int combination_check()
 	}
 	return 0;
 }
-int camera(void)
+
+int camera()
 {
-	int comb,i;
-	_delay_ms(100);
+	int i,returned;
 	for(i=0;i<5;i++)
 	{
 		combination[0] = gpio_read_pin(CAMERA_0_PIN);
 		combination[1] = gpio_read_pin(CAMERA_1_PIN);
 		combination[2] = gpio_read_pin(CAMERA_2_PIN);
-		
-		comb = combination_check();
-		_delay_ms(100);	
 	}
-	return comb;
+	returned = combination_check();
+	
 }
 
 
@@ -109,38 +108,10 @@ uint8_t system_get_match_started(void)
 {
 	return match_started;
 }
-uint8_t return_active_state(void)
+/*uint8_t return_active_state(void)
 {
 	return active_state;
-}
-void do_the_camera()
-{
-	static int camera_return;
-	
-	camera_return = camera();
-	switch(camera_return)
-	{
-		case 1:
-			active_state = ROBOT_STATE_TACTIC_ONE;
-			break;
-		case 2:
-			active_state = ROBOT_STATE_TACTIC_TWO;
-			break;
-		case 3:
-			active_state = ROBOT_STATE_TACTIC_THREE;
-			break;
-		case 4:
-			active_state = ROBOT_STATE_TACTIC_FOUR;
-			break;
-		case 5:
-			active_state = ROBOT_STATE_TACTIC_FIVE;
-			break;
-		case 0:
-			active_state = 5;
-			break;
-		//maybe put default for rotate for getting the camera right
-	}
-}
+}*/
 void system_init(void)
 {	
 
@@ -160,16 +131,16 @@ void system_init(void)
 	
 	
 	DDRG = 0xff;
-	//PORTG = 0x00;
+	PORTG = 0x00;
 	servo_init(50);
 	timer_init(1000);
 	CAN_Init(1);
 
-	//actuators_setup();
+	actuators_setup();
 	
 	while(gpio_read_pin(JUMPER_PIN))
 		_delay_ms(10);
-	//PORTG = 0xff;
+	PORTG = 0xff;
 	system_reset_system_time();
 	system_set_match_started();
 	
