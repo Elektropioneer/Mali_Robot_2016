@@ -194,21 +194,21 @@ unsigned char CAN_CheckRX(unsigned char nodeID)
 
 char CAN_Read(unsigned char *buffer, unsigned char sendingNodeID)
 {
-    unsigned char i;
+	unsigned char i;
+	PORTG = 0xff;
 	// sve dok ne stigne neki podatak ostajem u funkciji
 	while(!rxCounter[sendingNodeID - 1]);
 
 	for(i = 0; i < 8; ++i)
-		*(buffer + i) = (*(rxBuffers + sendingNodeID - 1) + sizeof(unsigned char) * (*(rxRdIndex + sendingNodeID - 1)))[i];
+	*(buffer + i) = (*(rxBuffers + sendingNodeID - 1) + sizeof(unsigned char) * (*(rxRdIndex + sendingNodeID - 1)))[i];
 
 	if(++(*(rxRdIndex + sendingNodeID - 1)) == RX_BUFFER_SIZE)
-		*(rxRdIndex + sendingNodeID - 1) = 0;
+	*(rxRdIndex + sendingNodeID - 1) = 0;
 
 	rxCounter[sendingNodeID - 1]--;
 
 	return 0;
 }
-
 
 char CAN_Write(unsigned char *data, unsigned char receivingNodeAddress)
 {
