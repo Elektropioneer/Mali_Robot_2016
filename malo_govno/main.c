@@ -63,6 +63,6 @@ int main()
 			camera = 0;
 			_delay_ms(3000);
 		}*/
-		purpleside();
+		greenside();
 	}
 }
