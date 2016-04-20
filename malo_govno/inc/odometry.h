@@ -13,8 +13,8 @@
 #define ODOMETRY_CALLBACK_RETURN	3
 
 #define LOW_SPEED					30
-#define NORMAL_SPEED				65
-#define HIGH_SPEED					90
+#define NORMAL_SPEED				90
+#define HIGH_SPEED					150
 
 #define FORWARD						1
 #define BACKWARD					-1

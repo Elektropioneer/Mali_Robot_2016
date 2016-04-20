@@ -135,7 +135,7 @@ void system_init(void)
 	timer_init(1000);
 	CAN_Init(1);
 
-	actuators_setup();
+	//actuators_setup();
 	
 	while(gpio_read_pin(JUMPER_PIN))
 		_delay_ms(10);
