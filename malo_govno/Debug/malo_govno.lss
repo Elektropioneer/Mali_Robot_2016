@@ -4167,11 +4167,11 @@ void purpleside(void)
     1998:	84 e0       	ldi	r24, 0x04	; 4
     199a:	80 83       	st	Z, r24
 	
-	starting_position.x		= 85;
+	starting_position.x		= 180;
     199c:	fe 01       	movw	r30, r28
     199e:	e5 5b       	subi	r30, 0xB5	; 181
     19a0:	ff 4f       	sbci	r31, 0xFF	; 255
-    19a2:	85 e5       	ldi	r24, 0x55	; 85
+    19a2:	84 eb       	ldi	r24, 0xB4	; 180
     19a4:	90 e0       	ldi	r25, 0x00	; 0
     19a6:	91 83       	std	Z+1, r25	; 0x01
     19a8:	80 83       	st	Z, r24

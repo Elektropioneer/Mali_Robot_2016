@@ -142,7 +142,7 @@ void purpleside(void)
 	uint8_t odometry_status;
 	int8_t active_state = ROBOT_STATE_TACTIC_THREE;
 	
-	starting_position.x		= 85;
+	starting_position.x		= 180;
 	starting_position.y		= 1010;
 	starting_position.angle = 90;
 	
