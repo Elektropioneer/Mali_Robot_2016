@@ -73,18 +73,40 @@ char purple_detection_back_right(uint32_t start_time)
 //////////////////////////////////////////////////////////////////////////
 const struct goto_fields purple_camera[TACTIC_CAMERA_POSITION] = 
 {
-	{{185,1180},LOW_SPEED,FORWARD,NULL},         	// gura prvi pak
-	{{185,880},LOW_SPEED,BACKWARD,NULL},		//vraca se ispred kocki
-	{{1100,980},LOW_SPEED,FORWARD,NULL},		//gura kocke
-	{{1000,980},LOW_SPEED,BACKWARD,NULL}		//vraca se nazad
+	{{185,1180},LOW_SPEED,FORWARD,NULL},        //POSITION 0			MOVE FORWARD FOR THE BIG ROBOT TO GO
+	{{185,880},LOW_SPEED,BACKWARD,NULL},		//POSITION 1			MOVE BACK INFRONT OF THE BLOCKS 
+	{{1100,980},LOW_SPEED,FORWARD,NULL},		//POSITION 2			PUSH THE BLOCKS TO THE GATE
+	{{1000,980},LOW_SPEED,BACKWARD,NULL}		//POSITION 3			GET A LITTLE BACK, AND EXECUTE CAMERA FUNCTION
 };
 const struct goto_fields purple_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] =
 {
-	{{1380,1850},LOW_SPEED,FORWARD,NULL}
+	{{900,1450},NORMAL_SPEED,FORWARD,NULL},	//POSITION 0			GO TO THE PURPLE STAR  WITH SERVO
+	{{200,1040},NORMAL_SPEED,FORWARD,NULL},		//POSITION 1			PUSH THEM TO START
+	{{500,1250},NORMAL_SPEED,BACKWARD,NULL},	//POSITION 2			GO BACK BEHIND THE 2 STARS		
+	{{620,1780},NORMAL_SPEED,BACKWARD,NULL},	//POSITION 3			GO TO THE RIGHT AND ALIGN FOR THE STARS TO PUSH TO START
+	{{200,1560},LOW_SPEED,FORWARD,NULL},		//POSITION 4			GO ALIGN IN A STRAIGHT LINE FOR THE STARS
+	{{125,1180},30,FORWARD,NULL},				//POSITION 5			PUSHING THE STARS TO THE STARTING AREA WE HOPE IT WONT FUCK UP
+	{{125,1300},30,FORWARD,NULL},				//POSITION 6			GOING BACK FOR ALIGN FOR THE DOORS
+	{{650,1250},30,FORWARD,NULL},				//POSITION 7			GOING INFRONT OF THE DOORS BUT NEAR TH ESTARTING AREA
+	{{650,200},30,FORWARD,NULL},			//POSITION 8			GOING INFRONT OF DOOR NUMBER 2
+	{{650,80},30,FORWARD,NULL}					//POSITION 9			PUSHING THE DOOR NUMBER 2 !!MAKE SURE THIS IS K!!
+		
+	//jos dodati
 };
 const struct goto_fields purple_tactic_two_positions[TACTIC_TWO_POSITION_COUNT] = 
 {
-	{{85,1220},NORMAL_SPEED,FORWARD,NULL}	
+	{{1150,1600},NORMAL_SPEED,FORWARD,NULL},	//POSITION 0			GO TO THE PURPLE STAR  WITH SERVO
+	{{200,1040},NORMAL_SPEED,FORWARD,NULL},		//POSITION 1			PUSH THEM TO START
+	{{500,1250},NORMAL_SPEED,BACKWARD,NULL},	//POSITION 2			GO BACK BEHIND THE 2 STARS
+	{{620,1780},NORMAL_SPEED,BACKWARD,NULL},	//POSITION 3			GO TO THE RIGHT AND ALIGN FOR THE STARS TO PUSH TO START
+	{{200,1560},LOW_SPEED,FORWARD,NULL},		//POSITION 4			GO ALIGN IN A STRAIGHT LINE FOR THE STARS
+	{{125,1180},30,FORWARD,NULL},				//POSITION 5			PUSHING THE STARS TO THE STARTING AREA WE HOPE IT WONT FUCK UP
+	{{125,1300},30,FORWARD,NULL},				//POSITION 6			GOING BACK FOR ALIGN FOR THE DOORS
+	{{650,1250},30,FORWARD,NULL},				//POSITION 7			GOING INFRONT OF THE DOORS BUT NEAR TH ESTARTING AREA
+	{{650,200},30,FORWARD,NULL},				//POSITION 8			GOING INFRONT OF DOOR NUMBER 2
+	{{650,80},30,FORWARD,NULL}					//POSITION 9			PUSHING THE DOOR NUMBER 2 !!MAKE SURE THIS IS K!!
+	
+	//jos dodati
 };
 const struct goto_fields purple_tactic_three_positions[TACTIC_THREE_POSITION_COUNT] = 
 {
@@ -140,7 +162,7 @@ void purpleside(void)
 	uint8_t current_position = 0;
 	uint8_t next_position = 0;
 	uint8_t odometry_status;
-	int8_t active_state = ROBOT_STATE_TACTIC_THREE;
+	int8_t active_state = ROBOT_STATE_TACTIC_ONE;
 	
 	starting_position.x		= 180;
 	starting_position.y		= 1010;
@@ -162,8 +184,23 @@ void purpleside(void)
 		}
 		if(current_position == 3)
 		{
+			int i;
+			
 			odometry_rotate(80,LOW_SPEED,NULL);                     //rotira se da dodje u poziciju za slikanje kamere
 			_delay_ms(2000);
+			/*_delay_ms(100);
+			for(i=0;i<2;i++)
+			{
+				if(!(camera()))
+				{
+					active_state = ROBOT_STATE_TACTIC_ERROR;
+				}
+				else
+				{
+					//it is set to gud
+				}
+			}
+			_delay_ms(100);*/
 		}
 	}//end for
 	
@@ -180,7 +217,23 @@ void purpleside(void)
 					{
 						break;
 					}
-					if(current_position == 8)
+					if(current_position == 0)
+					{
+						_delay_ms(1000);
+					}
+					if(current_position == 5)
+					{
+						int i;
+						for(i=0;i<59;i++)
+						{
+							_delay_ms(500);
+						}
+					}
+					else if(current_position == 7)
+					{
+						_delay_ms(1000);
+					}
+					else if(current_position == 9)
 					{
 						while(1);
 					}

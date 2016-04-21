@@ -31,27 +31,32 @@ static int combination_check()
 	if(combination[0] == 1 && combination[1] == 0 && combination[2] == 0)//first combination
 	{
 		PORTG = 0x01;
+		active_state = ROBOT_STATE_TACTIC_ONE;
 		return 1;
 	}
 	else if(combination[0] == 0 && combination[1] == 1 && combination[2] == 0)//second combination
 	{
 		PORTG = 0x02;
-		return 2;
+		active_state = ROBOT_STATE_TACTIC_TWO;
+		return 1;
 	}
 	else if(combination[0] == 0 && combination[1] == 0 && combination[2] == 1)//third combination
 	{
 		PORTG = 0x04;
-		return 3;
+		active_state = ROBOT_STATE_TACTIC_THREE;
+		return 1;
 	}
 	else if(combination[0] == 1 && combination[1] == 1 && combination[2] == 0)//fourth combination
 	{
 		PORTG = 0x03;
-		return 4;
+		active_state = ROBOT_STATE_TACTIC_FOUR;
+		return 1;
 	}
 	else if(combination[0] == 0 && combination[1] == 1 && combination[2] == 1)//five combination
 	{
 		PORTG = 0x06;
-		return 5;
+		active_state = ROBOT_STATE_TACTIC_FIVE;
+		return 1;
 	}
 	else if(combination[0] == 0 && combination[1] == 0 && combination[2] == 0)//error combination
 	{
@@ -61,19 +66,23 @@ static int combination_check()
 	return 0;
 }
 
-int camera()
+int camera(void)
 {
-	int i,returned;
-	for(i=0;i<5;i++)
+	int i;
+	for(i=0;i<10;i++)
 	{
 		combination[0] = gpio_read_pin(CAMERA_0_PIN);
 		combination[1] = gpio_read_pin(CAMERA_1_PIN);
 		combination[2] = gpio_read_pin(CAMERA_2_PIN);
+		
+		_delay_ms(100);
 	}
-	returned = combination_check();
+	if(combination_check())
+	{
+		return 1;
+	}
+	return 0;
 }
-
-
 void timer_init(unsigned int freq)
 {
     TCCR1A = 0;
@@ -107,10 +116,10 @@ uint8_t system_get_match_started(void)
 {
 	return match_started;
 }
-/*uint8_t return_active_state(void)
+uint8_t return_active_state(void)
 {
 	return active_state;
-}*/
+}
 void system_init(void)
 {	
 

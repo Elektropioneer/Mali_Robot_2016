@@ -41,7 +41,12 @@ void timer_init(unsigned int freq);
 
 unsigned char restartCheck;
 unsigned char stateRobot;
-//int active_state;
+
+int active_state;
+
+void countMeTo(double ms);
+
+int camera(void);
 
 void system_init(void);
 
