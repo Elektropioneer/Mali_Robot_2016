@@ -73,10 +73,10 @@ char green_detection_back_right(uint32_t start_time)
 //////////////////////////////////////////////////////////////////////////
 const struct goto_fields green_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] =
 {
-	{{185,820},LOW_SPEED,FORWARD,NULL},         	// gura prvi pak
-	{{185,1120},LOW_SPEED,BACKWARD,NULL},		//vraca se ispred kocki
-	{{1100,1020},LOW_SPEED,FORWARD,NULL},		//gura kocke
-	{{900,1020},LOW_SPEED,BACKWARD,NULL}		//vraca se nazad
+	{{185,820},LOW_SPEED,FORWARD,NULL},         	             // gura prvi pak
+	{{185,1120},LOW_SPEED,BACKWARD,NULL},		                //vraca se ispred kocki
+	{{1100,1020},LOW_SPEED,FORWARD,green_detection_front},		//gura kocke
+	{{900,1020},LOW_SPEED,BACKWARD,green_detection_back}		//vraca se nazad
 };
 void greenside(void)
 {

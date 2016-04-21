@@ -73,10 +73,10 @@ char purple_detection_back_right(uint32_t start_time)
 //////////////////////////////////////////////////////////////////////////
 const struct goto_fields purple_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] = 
 {
-	{{185,1180},LOW_SPEED,FORWARD,NULL},        //POSITION 0			MOVE FORWARD FOR THE BIG ROBOT TO GO
-	{{185,880},LOW_SPEED,BACKWARD,NULL},		//POSITION 1			MOVE BACK INFRONT OF THE BLOCKS 
-	{{1100,980},LOW_SPEED,FORWARD,NULL},		//POSITION 2			PUSH THE BLOCKS TO THE GATE
-	{{1000,980},LOW_SPEED,BACKWARD,NULL}		//POSITION 3			GET A LITTLE BACK, AND EXECUTE CAMERA FUNCTION
+	{{185,1180},LOW_SPEED,FORWARD,NULL},                              //POSITION 0			MOVE FORWARD FOR THE BIG ROBOT TO GO
+	{{185,880},LOW_SPEED,BACKWARD,NULL},		                     //POSITION 1			MOVE BACK INFRONT OF THE BLOCKS 
+	{{1100,980},LOW_SPEED,FORWARD,purple_detection_front},		    //POSITION 2			PUSH THE BLOCKS TO THE GATE
+	{{185,980},LOW_SPEED,BACKWARD,purple_detection_back}		    //POSITION 3			GET  BACK
 };
 void purpleside(void)
 {
