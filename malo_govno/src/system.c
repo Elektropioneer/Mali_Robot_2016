@@ -16,7 +16,7 @@
 static volatile unsigned long sys_time;
 static uint8_t match_started;
 static void (*timer_callback)(void) = NULL;
-static int combination[2];
+//static int combination[2];
 
 unsigned int received = 0;
 
@@ -24,7 +24,7 @@ void timer_register_callback(void (*callback)(void))
 {
     timer_callback = callback;
 }
-
+/*
 static int combination_check()
 {
 	PORTG = 0x00;
@@ -82,7 +82,7 @@ int camera(void)
 		return 1;
 	}
 	return 0;
-}
+}*/
 void timer_init(unsigned int freq)
 {
     TCCR1A = 0;
@@ -100,6 +100,7 @@ ISR(TIMER1_COMPA_vect)
 		actuators_umbrella();
 	sys_time++;
 }
+
 void system_reset_system_time(void)
 {
 	sys_time = 0;
@@ -120,6 +121,12 @@ uint8_t return_active_state(void)
 {
 	return active_state;
 }
+void delay_ms(uint32_t ms)
+{
+	uint32_t current;
+	current = system_get_system_time();
+	while((sys_time - current ) < ms);
+}
 void system_init(void)
 {	
 
@@ -128,9 +135,6 @@ void system_init(void)
 	
 	gpio_register_pin(JUMPER_PIN,GPIO_DIRECTION_INPUT,TRUE);							//jumper
 	gpio_register_pin(SIDE_PIN,GPIO_DIRECTION_INPUT,TRUE);								//prekidac za stranu
-	gpio_register_pin(CAMERA_0_PIN,GPIO_DIRECTION_INPUT,TRUE);							//camera 0 position
-	gpio_register_pin(CAMERA_1_PIN,GPIO_DIRECTION_INPUT,TRUE);							//camera 1 position
-	gpio_register_pin(CAMERA_2_PIN,GPIO_DIRECTION_INPUT,TRUE);							//camera 2 position
 
 	gpio_register_pin(SENSOR_F_L_PIN,GPIO_DIRECTION_INPUT,TRUE);						//sensor front left
 	gpio_register_pin(SENSOR_F_R_PIN,GPIO_DIRECTION_INPUT,TRUE);						//sensor front right
@@ -144,7 +148,7 @@ void system_init(void)
 	timer_init(1000);
 	CAN_Init(1);
 
-	//actuators_setup();
+	actuators_setup();
 	
 	while(gpio_read_pin(JUMPER_PIN))
 		_delay_ms(10);

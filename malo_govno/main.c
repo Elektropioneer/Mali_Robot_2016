@@ -17,6 +17,13 @@ int main()
 
 	while(1)
 	{
-		purpleside();
+		if(gpio_read_pin(SIDE_PIN))
+		{
+			purpleside();
+		}
+		else
+		{
+			greenside();
+		}
 	}
 }

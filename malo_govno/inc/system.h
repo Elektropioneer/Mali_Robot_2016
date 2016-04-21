@@ -24,9 +24,6 @@
 
 #define JUMPER_PIN				40		//portf 0
 #define SIDE_PIN				41		//portf 1
-#define CAMERA_0_PIN			0		//porta 0
-#define CAMERA_1_PIN			1		//porta 1
-#define CAMERA_2_PIN			2		//porta 2
 
 #define SENSOR_F_L_PIN			8		//portb 0	
 #define SENSOR_F_R_PIN			10		//portb 2 
@@ -44,7 +41,7 @@ unsigned char stateRobot;
 
 int active_state;
 
-void countMeTo(double ms);
+void delay_ms(uint32_t ms);
 
 int camera(void);
 

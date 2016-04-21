@@ -20,13 +20,7 @@
 #define BACKWARD					-1
 
 #define ROBOT_STATE_COLLISION		0
-#define ROBOT_STATE_MOVE_CAMERA		1
 #define ROBOT_STATE_TACTIC_ONE		2
-#define ROBOT_STATE_TACTIC_TWO      3
-#define ROBOT_STATE_TACTIC_THREE    4
-#define ROBOT_STATE_TACTIC_FOUR     5
-#define ROBOT_STATE_TACTIC_FIVE     6
-#define ROBOT_STATE_TACTIC_ERROR	7
 
 
 struct odometry_position 
