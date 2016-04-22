@@ -150,12 +150,11 @@ void system_init(void)
 
 	actuators_setup();
 	
-	while(gpio_read_pin(JUMPER_PIN))
+	while(!(gpio_read_pin(JUMPER_PIN)));
 		_delay_ms(10);
 	PORTG = 0xff;
 	system_reset_system_time();
 	system_set_match_started();
-	
 }
 signed char checkFrontSensors(signed char sensor)
 {

@@ -65,8 +65,8 @@ void servo_set_right_grabber_position(int8_t angle)//UP 100 DOWN 250 or otherwis
 }
 void servo_set_grabbers_up(void)
 {
-	servo_set_left_grabber_position(10);
-	servo_set_right_grabber_position(70);
+	servo_set_left_grabber_position(-10);
+	servo_set_right_grabber_position(80);//200 is for the half step
 }
 void servo_set_grabbers_down(void)
 {
@@ -81,18 +81,18 @@ servo_set_right_grabber_position(250);
 */
 void actuators_umbrella(void)
 {
-	servo_set_umbrella_position(85);
-	_delay_ms(1000);
-	servo_set_door_position(0);
-	_delay_ms(1000);
+	servo_set_door_position(90);
+	_delay_ms(2000);
+	servo_set_umbrella_position(70);
+	
 }
 void actuators_setup(void)
 {
-	servo_set_door_position(80);
+	servo_set_door_position(90);
 	_delay_ms(1000);
-	servo_set_umbrella_position(-90);
+	//servo_set_umbrella_position(-89);
 	_delay_ms(1000);
-	servo_set_door_position(0);
+	servo_set_door_position(30);
 	_delay_ms(500);
 	servo_set_grabbers_up();
 }

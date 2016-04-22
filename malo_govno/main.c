@@ -15,15 +15,11 @@ int main()
 	system_init();
 	_delay_ms(100);
 
+	
+	int i,b;
 	while(1)
 	{
-		if(gpio_read_pin(SIDE_PIN))
-		{
-			purpleside();
-		}
-		else
-		{
-			greenside();
-		}
+		purpleside();
+		
 	}
 }

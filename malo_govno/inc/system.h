@@ -17,10 +17,10 @@
 #define GREEN					0
 
 #define ACTIVATE				1
-#define DEACTIVE				0
+#define DEACTIVE			 	0
 
-#define TRUE					1
-#define FALSE					0
+#define TRUE					0
+#define FALSE					1
 
 #define JUMPER_PIN				40		//portf 0
 #define SIDE_PIN				41		//portf 1

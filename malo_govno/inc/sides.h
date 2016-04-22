@@ -1,7 +1,7 @@
 #ifndef SIDES_H_
 #define SIDES_H_
 
-#define TACTIC_ONE_POSITION_COUNT 4
+#define TACTIC_ONE_POSITION_COUNT 9
 
 #define PURPLE_SIDE 0
 #define GREEN_SIDE 1
