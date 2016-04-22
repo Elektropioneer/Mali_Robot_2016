@@ -98,7 +98,6 @@ const struct goto_fields purple_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] 
 void purpleside(void)
 {
 	struct odometry_position starting_position;
-	struct odometry_position set_position; 
 	uint8_t current_position = 0;
 	uint8_t next_position = 0;
 	uint8_t odometry_status;
@@ -119,6 +118,7 @@ void purpleside(void)
 				{
 					odometry_status = odometry_move_to_position(&(purple_tactic_one_positions[current_position].point), purple_tactic_one_positions[current_position].speed,
 																purple_tactic_one_positions[current_position].direction,purple_tactic_one_positions[current_position].callback); 
+
 					if(odometry_status == ODOMETRY_FAIL)
 					{
 						break;

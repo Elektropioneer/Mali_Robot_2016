@@ -100,6 +100,15 @@ ISR(TIMER1_COMPA_vect)
 		actuators_umbrella();
 	sys_time++;
 }
+signed char sides_switch_check(void)
+{
+	if(gpio_read_pin(SIDE_PIN) == 1)
+	{
+		return 1;
+	}
+	
+	return 0;
+}
 
 void system_reset_system_time(void)
 {

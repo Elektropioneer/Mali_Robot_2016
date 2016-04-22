@@ -30,9 +30,6 @@
 #define SENSOR_B_L_PIN			12		//portb 4
 #define SENSOR_B_R_PIN			14		//portb 6
 
-unsigned char GPIO_PinRegister(volatile unsigned char *baseAddress, unsigned char pin);
-unsigned char GPIO_PinRead(unsigned char pinHandler);
-unsigned char GPIO_ReadFromRegister(unsigned char pinHandler);
 
 void timer_init(unsigned int freq);
 
@@ -43,7 +40,8 @@ int active_state;
 
 void delay_ms(uint32_t ms);
 
-int camera(void);
+//int camera(void);
+signed char sides_switch_check(void);
 
 void system_init(void);
 
