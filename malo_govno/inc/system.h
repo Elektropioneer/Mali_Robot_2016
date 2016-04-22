@@ -38,7 +38,8 @@ unsigned char stateRobot;
 
 int active_state;
 
-void delay_ms(uint32_t ms);
+void delay(double ms);
+void wait_for_big_robot(double time_to_wait);
 
 //int camera(void);
 signed char sides_switch_check(void);

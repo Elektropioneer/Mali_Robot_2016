@@ -5,7 +5,7 @@ c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libm.a(add
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libm.a(addsf3x.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libm.a(addsf3.o) (__addsf3x)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libm.a(cmpsf2.o)
-                              main.o (__ltsf2)
+                              src/system.o (__nesf2)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libm.a(divsf3.o)
                               src/actuators.o (__divsf3)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libm.a(divsf3x.o)
@@ -33,7 +33,7 @@ c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libm.a(fp_
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libm.a(fp_zero.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libm.a(addsf3x.o) (__fp_zero)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libm.a(gesf2.o)
-                              main.o (__gtsf2)
+                              src/system.o (__gesf2)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libm.a(mulsf3.o)
                               main.o (__mulsf3)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libm.a(mulsf3x.o)
@@ -127,6 +127,9 @@ Discarded input sections
  .data          0x00000000        0x0 src/system.o
  .bss           0x00000000        0x0 src/system.o
  .bss.received  0x00000000        0x0 src/system.o
+ .text.delay    0x00000000        0x0 src/system.o
+ .text.wait_for_big_robot
+                0x00000000        0x0 src/system.o
  .text.system_get_match_started
                 0x00000000        0x0 src/system.o
  .text.return_active_state
@@ -834,7 +837,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x370
+.debug_aranges  0x00000000      0x380
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x20 main.o
@@ -851,12 +854,12 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
  .debug_aranges
                 0x00000218       0x60 src/purpleside.o
  .debug_aranges
-                0x00000278       0x80 src/system.o
+                0x00000278       0x90 src/system.o
  .debug_aranges
-                0x000002f8       0x78 src/uart.o
+                0x00000308       0x78 src/uart.o
 
 .debug_pubnames
-                0x00000000      0x880
+                0x00000000      0x8a1
  *(.debug_pubnames)
  .debug_pubnames
                 0x00000000       0x54 main.o
@@ -873,11 +876,11 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
  .debug_pubnames
                 0x000004e4      0x157 src/purpleside.o
  .debug_pubnames
-                0x0000063b      0x174 src/system.o
+                0x0000063b      0x195 src/system.o
  .debug_pubnames
-                0x000007af       0xd1 src/uart.o
+                0x000007d0       0xd1 src/uart.o
 
-.debug_info     0x00000000     0x282f
+.debug_info     0x00000000     0x288a
  *(.debug_info)
  .debug_info    0x00000000      0x16f main.o
  .debug_info    0x0000016f      0x3e9 src/actuators.o
@@ -886,8 +889,8 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
  .debug_info    0x00000c3b      0x6f3 src/greenside.o
  .debug_info    0x0000132e      0x6f7 src/odometry.o
  .debug_info    0x00001a25      0x6f3 src/purpleside.o
- .debug_info    0x00002118      0x382 src/system.o
- .debug_info    0x0000249a      0x395 src/uart.o
+ .debug_info    0x00002118      0x3dd src/system.o
+ .debug_info    0x000024f5      0x395 src/uart.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev   0x00000000      0xaed
@@ -902,7 +905,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
  .debug_abbrev  0x000008be      0x156 src/system.o
  .debug_abbrev  0x00000a14       0xd9 src/uart.o
 
-.debug_line     0x00000000     0x2dc9
+.debug_line     0x00000000     0x2e15
  *(.debug_line)
  .debug_line    0x00000000      0x1bc main.o
  .debug_line    0x000001bc      0x4b0 src/actuators.o
@@ -911,10 +914,10 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
  .debug_line    0x00000d63      0x7cd src/greenside.o
  .debug_line    0x00001530      0x7c7 src/odometry.o
  .debug_line    0x00001cf7      0x7ce src/purpleside.o
- .debug_line    0x000024c5      0x4d7 src/system.o
- .debug_line    0x0000299c      0x42d src/uart.o
+ .debug_line    0x000024c5      0x523 src/system.o
+ .debug_line    0x000029e8      0x42d src/uart.o
 
-.debug_frame    0x00000000      0x5c0
+.debug_frame    0x00000000      0x5e0
  *(.debug_frame)
  .debug_frame   0x00000000       0x20 main.o
  .debug_frame   0x00000020       0xd0 src/actuators.o
@@ -923,28 +926,28 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
  .debug_frame   0x000001f0       0xa0 src/greenside.o
  .debug_frame   0x00000290       0xe0 src/odometry.o
  .debug_frame   0x00000370       0xa0 src/purpleside.o
- .debug_frame   0x00000410       0xe0 src/system.o
- .debug_frame   0x000004f0       0xd0 src/uart.o
+ .debug_frame   0x00000410      0x100 src/system.o
+ .debug_frame   0x00000510       0xd0 src/uart.o
 
-.debug_str      0x00000000      0xa3b
+.debug_str      0x00000000      0xaa0
  *(.debug_str)
- .debug_str     0x00000000       0xdf main.o
-                                0x125 (size before relaxing)
- .debug_str     0x000000df      0x14f src/actuators.o
-                                0x273 (size before relaxing)
- .debug_str     0x0000022e       0xd1 src/can.o
-                                0x184 (size before relaxing)
- .debug_str     0x000002ff       0xda src/gpio.o
-                                0x1c8 (size before relaxing)
- .debug_str     0x000003d9      0x16e src/greenside.o
-                                0x2be (size before relaxing)
- .debug_str     0x00000547      0x159 src/odometry.o
-                                0x2d9 (size before relaxing)
- .debug_str     0x000006a0      0x100 src/purpleside.o
-                                0x2c9 (size before relaxing)
- .debug_str     0x000007a0      0x12c src/system.o
+ .debug_str     0x00000000       0xdd main.o
+                                0x123 (size before relaxing)
+ .debug_str     0x000000dd      0x14f src/actuators.o
                                 0x271 (size before relaxing)
- .debug_str     0x000008cc      0x16f src/uart.o
+ .debug_str     0x0000022c      0x105 src/can.o
+                                0x184 (size before relaxing)
+ .debug_str     0x00000331       0xda src/gpio.o
+                                0x1c8 (size before relaxing)
+ .debug_str     0x0000040b      0x16e src/greenside.o
+                                0x2bc (size before relaxing)
+ .debug_str     0x00000579      0x159 src/odometry.o
+                                0x2d7 (size before relaxing)
+ .debug_str     0x000006d2      0x100 src/purpleside.o
+                                0x2c7 (size before relaxing)
+ .debug_str     0x000007d2      0x15f src/system.o
+                                0x2a2 (size before relaxing)
+ .debug_str     0x00000931      0x16f src/uart.o
                                 0x22c (size before relaxing)
 
 .debug_loc
@@ -955,7 +958,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
 OUTPUT(malo_govno.elf elf32-avr)
 LOAD linker stubs
 
-.debug_ranges   0x00000000      0x328
+.debug_ranges   0x00000000      0x338
  .debug_ranges  0x00000000       0x18 main.o
  .debug_ranges  0x00000018       0x70 src/actuators.o
  .debug_ranges  0x00000088       0x48 src/can.o
@@ -963,5 +966,5 @@ LOAD linker stubs
  .debug_ranges  0x00000118       0x58 src/greenside.o
  .debug_ranges  0x00000170       0x78 src/odometry.o
  .debug_ranges  0x000001e8       0x58 src/purpleside.o
- .debug_ranges  0x00000240       0x78 src/system.o
- .debug_ranges  0x000002b8       0x70 src/uart.o
+ .debug_ranges  0x00000240       0x88 src/system.o
+ .debug_ranges  0x000002c8       0x70 src/uart.o

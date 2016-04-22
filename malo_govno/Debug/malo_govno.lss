@@ -9,21 +9,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   2 .bss          00000148  008001da  008001da  00004d42  2**0
                   ALLOC
-  3 .debug_aranges 00000370  00000000  00000000  00004d42  2**0
+  3 .debug_aranges 00000380  00000000  00000000  00004d42  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_pubnames 00000880  00000000  00000000  000050b2  2**0
+  4 .debug_pubnames 000008a1  00000000  00000000  000050c2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   0000282f  00000000  00000000  00005932  2**0
+  5 .debug_info   0000288a  00000000  00000000  00005963  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000aed  00000000  00000000  00008161  2**0
+  6 .debug_abbrev 00000aed  00000000  00000000  000081ed  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00002dc9  00000000  00000000  00008c4e  2**0
+  7 .debug_line   00002e15  00000000  00000000  00008cda  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000005c0  00000000  00000000  0000ba18  2**2
+  8 .debug_frame  000005e0  00000000  00000000  0000baf0  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000a3b  00000000  00000000  0000bfd8  2**0
+  9 .debug_str    00000aa0  00000000  00000000  0000c0d0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000328  00000000  00000000  0000ca13  2**0
+ 10 .debug_ranges 00000338  00000000  00000000  0000cb70  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -64,11 +64,11 @@ void stop(int8_t type)
 	return 0;
 }
        8:	63 c0       	rjmp	.+198    	; 0xd0 <__bad_interrupt>
-uint32_t system_get_system_time(void)
-{
-	return sys_time;
+	if(sys_time >= 90000)
+		actuators_umbrella();
+	sys_time++;
 }
-uint8_t system_get_match_started(void)
+void delay(double ms)
 {
        a:	00 00       	nop
 
@@ -9998,6 +9998,10 @@ ISR(TIMER1_COMPA_vect)
     405a:	18 95       	reti
 
 0000405c <sides_switch_check>:
+void wait_for_big_robot(double time_to_wait)
+{
+	while(sys_time < time_to_wait);
+}
 signed char sides_switch_check(void)
 {
     405c:	df 93       	push	r29

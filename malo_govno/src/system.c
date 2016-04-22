@@ -100,6 +100,16 @@ ISR(TIMER1_COMPA_vect)
 		actuators_umbrella();
 	sys_time++;
 }
+void delay(double ms)
+{
+	double current_time;
+	current_time = sys_time;
+	while(!(sys_time - current_time) >= ms);
+}
+void wait_for_big_robot(double time_to_wait)
+{
+	while(sys_time < time_to_wait);
+}
 signed char sides_switch_check(void)
 {
 	if(gpio_read_pin(SIDE_PIN) == 1)
