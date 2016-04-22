@@ -48,8 +48,8 @@ void system_init(void);
 
 //Funkcije za proveru senzora, jumpera i prekidaca
 uint8_t return_active_state(void);
-signed char checkFrontSensors(signed char sensor);
-signed char checkRearSensors(signed char sensor);
+signed char check_front_sensors(signed char sensor);
+signed char check_back_sensors(signed char sensor);
 
 void system_set_match_started(void);
 uint8_t system_get_match_started(void);

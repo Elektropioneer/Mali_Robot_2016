@@ -175,6 +175,31 @@ void system_init(void)
 	system_reset_system_time();
 	system_set_match_started();
 }
+signed char check_front_sensors(signed char sensor)
+{
+	if(sensor == FRONT_ALL)
+	{
+		if(!(gpio_read_pin(SENSOR_F_L_PIN)) || !(gpio_read_pin(SENSOR_F_R_PIN)))
+		{
+			return DETECTED;
+		}
+	}
+	
+	return NOT_DETECTED;
+}
+signed char check_back_sensors(signed char sensor)
+{
+	if(sensor == BACK_ALL)
+	{
+		if(!(gpio_read_pin(SENSOR_B_L_PIN)) || !(gpio_read_pin(SENSOR_B_R_PIN)))
+		{
+			return DETECTED;
+		}
+	}
+	
+	return NOT_DETECTED;
+}
+/*
 signed char checkFrontSensors(signed char sensor)
 {
 	if(sensor == FRONT_LEFT_SIDE)
@@ -224,4 +249,4 @@ signed char checkRearSensors(signed char sensor)
 		}
 	}
 	return NOT_DETECTED;
-}
+}*/
