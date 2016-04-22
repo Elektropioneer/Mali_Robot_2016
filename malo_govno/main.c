@@ -7,23 +7,36 @@
 #include "sides.h"
 #include "actuators.h"
 
+int set = 1;
+
 int main()
 {
-	
-
 
 	system_init();
 	_delay_ms(100);
-
-	while(1)
+	
+	while(set)
 	{
-		if(gpio_read_pin(SIDE_PIN))
+		if(sides_switch_check() == 0)
 		{
-			purpleside();
+			set = 2;
+			greenside();	
 		}
 		else
 		{
+			set = 3;
+			purpleside();	
+		}
+	}
+	while(1)
+	{
+		if(set == 2)
+		{
 			greenside();
+		}
+		else if(set == 3)
+		{
+			purpleside();
 		}
 	}
 }

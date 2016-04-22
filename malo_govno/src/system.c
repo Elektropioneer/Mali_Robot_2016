@@ -100,6 +100,25 @@ ISR(TIMER1_COMPA_vect)
 		actuators_umbrella();
 	sys_time++;
 }
+void delay(double ms)
+{
+	double current_time;
+	current_time = sys_time;
+	while(!(sys_time - current_time) >= ms);
+}
+void wait_for_big_robot(double time_to_wait)
+{
+	while(sys_time < time_to_wait);
+}
+signed char sides_switch_check(void)
+{
+	if(gpio_read_pin(SIDE_PIN) == 1)
+	{
+		return 1;
+	}
+	
+	return 0;
+}
 
 void system_reset_system_time(void)
 {
@@ -150,13 +169,37 @@ void system_init(void)
 
 	actuators_setup();
 	
-	while(gpio_read_pin(JUMPER_PIN))
+	while(!(gpio_read_pin(JUMPER_PIN)));
 		_delay_ms(10);
 	PORTG = 0xff;
 	system_reset_system_time();
 	system_set_match_started();
-	
 }
+signed char check_front_sensors(signed char sensor)
+{
+	if(sensor == FRONT_ALL)
+	{
+		if(!(gpio_read_pin(SENSOR_F_L_PIN)) || !(gpio_read_pin(SENSOR_F_R_PIN)))
+		{
+			return DETECTED;
+		}
+	}
+	
+	return NOT_DETECTED;
+}
+signed char check_back_sensors(signed char sensor)
+{
+	if(sensor == BACK_ALL)
+	{
+		if(!(gpio_read_pin(SENSOR_B_L_PIN)) || !(gpio_read_pin(SENSOR_B_R_PIN)))
+		{
+			return DETECTED;
+		}
+	}
+	
+	return NOT_DETECTED;
+}
+/*
 signed char checkFrontSensors(signed char sensor)
 {
 	if(sensor == FRONT_LEFT_SIDE)
@@ -206,4 +249,4 @@ signed char checkRearSensors(signed char sensor)
 		}
 	}
 	return NOT_DETECTED;
-}
+}*/

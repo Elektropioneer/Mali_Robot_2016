@@ -15,68 +15,35 @@
 //																		//
 //////////////////////////////////////////////////////////////////////////
 
+
 char purple_detection_front(uint32_t start_time)
 {
-	if(checkFrontSensors(FRONT_ALL) == DETECTED)
+	signed char i;
+	i = check_front_sensors(FRONT_ALL);
+	if(i == DETECTED)
 	{
 		stop(HARD_STOP);
 		return 1;
 	}
 	return 0;
 }
-char purple_detection_front_left(uint32_t start_time)
+char grabbers_down_purple(uint32_t start_time)
 {
-	if(checkFrontSensors(FRONT_LEFT_SIDE) == DETECTED)
-	{
-		stop(HARD_STOP);
-		return 1;
-	}
+	servo_set_grabbers_down();
 	return 0;
 }
-char purple_detection_front_right(uint32_t start_time)
+char grabbers_up_purple(uint32_t start_time)
 {
-	if(checkFrontSensors(FRONT_RIGHT_SIDE) == DETECTED)
-	{
-		stop(HARD_STOP);
-		return 1;
-	}
+	servo_set_grabbers_up();
 	return 0;
 }
-char purple_detection_back(uint32_t start_time)
-{
-	if(checkRearSensors(BACK_ALL) == DETECTED)
-	{
-		stop(HARD_STOP);
-		return 1;
-	}
-	return 0;
-}
-char purple_detection_back_left(uint32_t start_time)
-{
-	if(checkRearSensors(BACK_LEFT_SIDE) == DETECTED)
-	{
-		stop(HARD_STOP);
-		return 1;
-	}
-	return 0;
-}
-char purple_detection_back_right(uint32_t start_time)
-{
-	if(checkRearSensors(BACK_RIGHT_SIDE) == DETECTED)
-	{
-		stop(HARD_STOP);
-		return 1;
-	}
-	return 0;
-}
-
 //////////////////////////////////////////////////////////////////////////
 const struct goto_fields purple_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] = 
 {
-	{{185,1180},LOW_SPEED,FORWARD,NULL},                              //POSITION 0			MOVE FORWARD FOR THE BIG ROBOT TO GO
-	{{185,880},LOW_SPEED,BACKWARD,NULL},		                     //POSITION 1			MOVE BACK INFRONT OF THE BLOCKS 
-	{{1100,980},LOW_SPEED,FORWARD,purple_detection_front},		    //POSITION 2			PUSH THE BLOCKS TO THE GATE
-	{{185,980},LOW_SPEED,BACKWARD,purple_detection_back}		    //POSITION 3			GET  BACK
+	{{280,250},LOW_SPEED,FORWARD,purple_detection_front},						//POSITION 0			MOVE FORWARD FOR THE BIG ROBOT TO GO
+	{{280,90},20,FORWARD,NULL},						//POSITION 1			MOVE BACK INFRONT OF THE BLOCKS
+	{{280,190},20,BACKWARD,NULL}
+
 };
 void purpleside(void)
 {
@@ -87,8 +54,8 @@ void purpleside(void)
 	int8_t active_state = ROBOT_STATE_TACTIC_ONE;
 	
 	starting_position.x		= 180;
-	starting_position.y		= 1010;
-	starting_position.angle = 90;
+	starting_position.y		= 680;
+	starting_position.angle = -90;
 	
 	odometry_set_position(&starting_position);
 	
@@ -96,16 +63,35 @@ void purpleside(void)
 	{
 		switch(active_state)
 		{
+			case ROBOT_STATE_COLLISION:
+				if(current_position == 0)
+				{
+					_delay_ms(200);
+					while(purple_tactic_one_positions[current_position].callback(0) != 0)
+					_delay_ms(100);
+					//next_position = current_position;
+					active_state = ROBOT_STATE_TACTIC_ONE;
+					break;
+				}
 			case ROBOT_STATE_TACTIC_ONE:
 				for(current_position = next_position;current_position < TACTIC_ONE_POSITION_COUNT; current_position++)
 				{
 					odometry_status = odometry_move_to_position(&(purple_tactic_one_positions[current_position].point), purple_tactic_one_positions[current_position].speed,
 																purple_tactic_one_positions[current_position].direction,purple_tactic_one_positions[current_position].callback); 
+
 					if(odometry_status == ODOMETRY_FAIL)
 					{
 						break;
 					}
-					else if(current_position == 3)
+					if(current_position == 0)
+					{
+						_delay_ms(3000);
+					}
+					else if(current_position == 1)
+					{
+						_delay_ms(1500);
+					}
+					if(current_position == 2)
 					{
 						while(1);
 					}
