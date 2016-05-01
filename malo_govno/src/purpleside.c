@@ -40,9 +40,9 @@ char grabbers_up_purple(uint32_t start_time)
 //////////////////////////////////////////////////////////////////////////
 const struct goto_fields purple_tactic_one_positions[TACTIC_ONE_POSITION_COUNT] = 
 {
-	{{280,250},LOW_SPEED,FORWARD,purple_detection_front},						//POSITION 0			MOVE FORWARD FOR THE BIG ROBOT TO GO
-	{{280,90},20,FORWARD,NULL},						//POSITION 1			MOVE BACK INFRONT OF THE BLOCKS
-	{{280,190},20,BACKWARD,NULL}
+	{{280,280},LOW_SPEED,FORWARD,purple_detection_front},						//POSITION 0			MOVE FORWARD FOR THE BIG ROBOT TO GO
+	{{280,140},20,FORWARD,NULL},						//POSITION 1			MOVE BACK INFRONT OF THE BLOCKS
+	{{280,190},10,BACKWARD,NULL}
 
 };
 void purpleside(void)
@@ -55,10 +55,14 @@ void purpleside(void)
 	
 	starting_position.x		= 180;
 	starting_position.y		= 680;
-	starting_position.angle = -90;
+	starting_position.angle = 90;
 	
 	odometry_set_position(&starting_position);
 	
+	odometry_move_straight(-200,LOW_SPEED,NULL);
+	_delay_ms(1000);
+	odometry_rotate(-180,LOW_SPEED,NULL);
+	_delay_ms(1000);
 	while(1)
 	{
 		switch(active_state)
@@ -89,7 +93,7 @@ void purpleside(void)
 					}
 					else if(current_position == 1)
 					{
-						_delay_ms(1500);
+						_delay_ms(2000);
 					}
 					if(current_position == 2)
 					{
