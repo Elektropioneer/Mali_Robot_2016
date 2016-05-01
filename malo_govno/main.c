@@ -14,7 +14,7 @@ int main()
 
 	system_init();
 	_delay_ms(100);
-	/*	
+	
 	while(set)
 	{
 		if(sides_switch_check() == 0)
@@ -37,20 +37,6 @@ int main()
 		else if(set == 3)
 		{
 			purpleside();
-		}
-	}*/
-	
-	signed char i;
-	while(1)
-	{
-		i=check_back_sensors(BACK_ALL);
-		if(i == DETECTED)
-		{
-			PORTG = 0xff;
-		}
-		else
-		{
-			PORTG = 0x00;
 		}
 	}
 }
